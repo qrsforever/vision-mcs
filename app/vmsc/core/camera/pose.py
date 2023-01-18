@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# @file camerapose.py
+# @file pose.py
 # @brief
 # @author QRS
 # @version 1.0
@@ -13,6 +13,7 @@ import cv2
 
 class CameraPose(object):
     '''
+    camera transform matrix wrt. world coordinate.
     '''
 
     @classmethod
@@ -25,7 +26,15 @@ class CameraPose(object):
 
     @property
     def I(self): # noqa: E743
+        '''
+        https://erlangai-blog-assets.oss-cn-hangzhou.aliyuncs.com/Misc/camera/extrinsic_transform_pose.png
+        '''
         return CameraPose(self.r.T, - (self.r.T @ self.t))
 
     def __matmul__(self, other):
+        '''
+        | Rl  Cl  |    | Rr  Cr  |   | Rl Rr  RlCr +_Cl |
+        |         | @  |         | = |                  |
+        | 0    1  |    | 0    1  |   |   0        1     |
+        '''
         return CameraPose(self.r @ other.r, self.r @ other.t + self.t)
