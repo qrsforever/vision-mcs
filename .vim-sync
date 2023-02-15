@@ -1,7 +1,7 @@
 #!/bin/bash
 
-remote_hostnames=('k8-master' 'k8-storage')
-remote_relative_path=('/root/hzcsai_com/hzcsk8s/' '/data/k8s-nfs/codes/hzcsk8s')
+remote_hostnames=('pi')
+remote_relative_path=('/home/pi/codes/vision-mcs')
 
 cd $(dirname $0)
 

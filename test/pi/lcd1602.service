@@ -1,0 +1,13 @@
+[Unit]
+Description=LCD IP Display
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c "python3 /home/pi/codes/vision-mcs/test/pi/lcd1602.py"
+WorkingDirectory=/home/pi
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target

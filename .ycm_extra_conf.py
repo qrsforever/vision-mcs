@@ -7,7 +7,9 @@ def PythonSysPath(**kwargs):
     sys_path = kwargs['sys_path']
 
     dependencies = [
-        os.path.join(DIR_OF_THIS_SCRIPT, 'python')
+        os.path.join(DIR_OF_THIS_SCRIPT, 'python'),
+        os.path.join(DIR_OF_THIS_SCRIPT, 'app'),
+        os.path.join(DIR_OF_THIS_SCRIPT, 'test/pi'),
     ]
 
     sys_path[0:0] = dependencies
