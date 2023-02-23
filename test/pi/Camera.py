@@ -61,20 +61,18 @@ class Camera(object):
                 f'v4l2-ctl --device /dev/video{self._source} --list-ctrls',
                 shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
         if not ret.returncode:
-            # brightness 0x00980900 (int)    : min=-64 max=64 step=1 default=0 value=1
             for line in ret.stdout.readlines():
                 p, q = line.split(':')
                 p, q = p.strip(), q.strip()
                 psegs = p.split(' ')
                 qsegs = q.split(' ')
-                print(psegs, qsegs)
                 props = {'min': 0, 'max': 1, 'step': 1}
-                if psegs[-1] == '(int)' or psegs[-1] == '(menu)':
-                    props['min'] = int(qsegs[0].split('=')[1])
-                    props['max'] = int(qsegs[1].split('=')[1])
-                    props['step'] = int(qsegs[2].split('=')[1])
-                    props['default'] = int(qsegs[3].split('=')[1])
-                    props['value'] = int(qsegs[4].split('=')[1])
+                if psegs[-1] == '(int)':
+                    for i, name in enumerate(['min', 'max', 'step', 'default', 'value']):
+                        props[name] = int(qsegs[i].split('=')[1])
+                elif psegs[-1] == '(menu)':
+                    for i, name in enumerate(['min', 'max', 'default', 'value']):
+                        props[name] = int(qsegs[i].split('=')[1])
                 else: # bool
                     props['default'] = int(qsegs[0].split('=')[1])
                     props['value'] = int(qsegs[1].split('=')[1])
@@ -82,17 +80,17 @@ class Camera(object):
 
     def set(self, key, value):
         try:
-            subprocess.check_output(
-                    f'v4l2-ctl --device /dev/video{self._source} --set-ctrl {key}={value}',
-                    shell=True).strip().decode()
+            cmd = f'v4l2-ctl --device /dev/video{self._source} --set-ctrl {key}={value}'
+            print(cmd)
+            subprocess.check_output(cmd, shell=True).strip().decode()
         except subprocess.CalledProcessError:
             return None
 
     def get(self, key):
         try:
-            return subprocess.check_output(
-                    f'v4l2-ctl --device /dev/video{self._source} --get-ctrl {key}',
-                    shell=True).strip().decode()
+            cmd = f'v4l2-ctl --device /dev/video{self._source} --get-ctrl {key}'
+            print(cmd)
+            return subprocess.check_output(cmd, shell=True).strip().decode()
         except subprocess.CalledProcessError:
             return None
 
@@ -135,6 +133,7 @@ class Camera(object):
         _capture.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         _capture.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
         _capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'))
+        _capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
         self.width = int(_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
         self.height = int(_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -168,7 +167,7 @@ if __name__ == "__main__":
             ret, frame = camera.read()
             if ret:
                 cv2.imshow(wintitle, frame)
-            key = cv2.waitKey(200)
+            key = cv2.waitKey(2)
             if key & 0xFF == ord('q') or key & 0xFF == 27:
                 break
 

@@ -40,16 +40,17 @@ def _on_change_brightness(val):
 if __name__ == "__main__":
     try:
         camera = Camera(video_index, (640, 480))
-        camera.open()
+        camera.parse_ctrls()
         camera.info()
+        camera.open()
         frame_take = camera.read()[1]
 
         cv2.namedWindow(wintitle)
-        cv2.startWindowThread()
-        cv2.createTrackbar('Brightness', wintitle, 100, 300, _on_change_brightness)
-        # cv2.createTrackbar('Contrast', wintitle, 50, 300, _on_change_contrast)
-        # cv2.createTrackbar('Saturation', wintitle, 90, 100, _on_change_saturation)
-        # cv2.createTrackbar('Hue', wintitle, 15, 360, _on_change_hue)
+        wintitle = 'test'
+        cv2.namedWindow(wintitle)
+        for key, args in camera.properties.items():
+            cv2.createTrackbar(key, wintitle, args['value'], args['max'], lambda v, k=key: camera.set(k, v))
+            cv2.setTrackbarMin(key, wintitle, args['min'])
 
         def _trigger_callback(channel):
             global frame_count, frame_take

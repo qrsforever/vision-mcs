@@ -10,9 +10,8 @@
 
 import RPi.GPIO as GPIO
 import cv2
-import os
 import time
-import threading
+from Camera import Camera
 
 # 光电
 PIN_PHOTO_ELE = 5
@@ -31,84 +30,62 @@ led_pwm = GPIO.PWM(PIN_FLASH_LED, 400)
 if led_pwm is not None:
     led_pwm.start(0)
 
-count = 0
+camera = None
+wintitle = 'freqflash'
+video_index = 0
+frame_count = 0
+frame_take = None
+
 
 if __name__ == "__main__":
     try:
-        os.system('rm -f /home/pi/caps/*.png')
-        cap = cv2.VideoCapture(0)
-        if not cap.isOpened():
-            raise
+        camera = Camera(video_index, (640, 480))
+        camera.parse_ctrls()
+        camera.info()
+        camera.open()
+        frame_take = camera.read()[1]
 
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        cap.set(cv2.CAP_PROP_FPS, 30)
-        cap.set(cv2.CAP_PROP_FOURCC,cv2.VideoWriter_fourcc('M','J','P','G'))
-
-        cap.set(cv2.CAP_PROP_BRIGHTNESS, 1)
-        cap.set(cv2.CAP_PROP_CONTRAST,40)
-        cap.set(cv2.CAP_PROP_SATURATION, 50)
-        cap.set(cv2.CAP_PROP_HUE, 50)
-        cap.set(cv2.CAP_PROP_AUTO_WB, 1)
-
-        # cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 3)
-        cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
-        cap.set(cv2.CAP_PROP_EXPOSURE, 120) # ms
-        cap.set(cv2.CAP_PROP_GAIN, 60)
-
-        cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-
-        print(cap.get(cv2.CAP_PROP_FPS))
-        print(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        print(cap.get(cv2.CAP_PROP_AUTO_EXPOSURE))
-        print(cap.get(cv2.CAP_PROP_EXPOSURE))
-        print(cap.get(cv2.CAP_PROP_GAIN))
+        cv2.namedWindow(wintitle)
+        wintitle = 'test'
+        cv2.namedWindow(wintitle)
+        for key, args in camera.properties.items():
+            cv2.createTrackbar(key, wintitle, args['value'], args['max'], lambda v, k=key: camera.set(k, v))
+            cv2.setTrackbarMin(key, wintitle, args['min'])
 
         GPIO.setup(PIN_PHOTO_ELE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
         def _mycallback(channel):
-            global count
+            global frame_count, frame_take
             if channel == PIN_PHOTO_ELE:
-                print('Count: %d, Input: %d' % (count, GPIO.input(PIN_PHOTO_ELE)))
                 if led_pwm is not None:
                     led_pwm.ChangeDutyCycle(25)
                 GPIO.output(PIN_FLASH_LED, GPIO.HIGH)
                 time.sleep(0.2)
-                cap.grab(); # noqa: remove old frames
-                ret, frame = cap.read()
+                ret, frame = camera.read()
                 if ret:
-                    cv2.imwrite(f'/home/pi/caps/pic{count}.png', frame)
-                count += 1
-                # time.sleep(0.3)
+                    frame_take = frame
+                frame_count += 1
                 GPIO.output(PIN_FLASH_LED, GPIO.LOW)
                 if led_pwm is not None:
                     led_pwm.ChangeDutyCycle(0)
 
         GPIO.add_event_detect(PIN_PHOTO_ELE, GPIO.FALLING, callback=_mycallback, bouncetime=500)
 
-        # frames = []
-        # times = []
-        # while count < 5:
-        #     ret, frame = cap.read()
-        #     if ret:
-        #         times.append(time.time())
-        #         frames.append(frame)
-        # i = 0
-        # print('len = ', len(frames))
-        # for frame, t in zip(frames, times):
-        #     cv2.putText(frame, '%f' % t,
-        #             (100, 100),
-        #             cv2.FONT_HERSHEY_SIMPLEX,
-        #             0.6, (0, 255, 0), 1)
-        #     cv2.imwrite(f'/home/pi/test{i}.png', frame)
-        #     i += 1
-
         while True:
-            time.sleep(1)
+            cv2.putText(frame_take, '%d' % frame_count,
+                        (100, 100),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        1.2, (0, 0, 0), 2)
+            cv2.imshow(wintitle, frame_take)
+            key = cv2.waitKey(200)
+            if key & 0xFF == ord('q') or key & 0xFF == 27:
+                break
 
     except KeyboardInterrupt:
-        cap.release()
+        pass
     finally:
         if led_pwm is not None:
             led_pwm.stop()
         GPIO.cleanup()
+        camera.close()
+        cv2.destroyAllWindows()
