@@ -24,15 +24,38 @@ class PinHoleModel(object):
             R1=None, R2=None, P1=None, P2=None, Q=None,
             new_image_size=None, balance=None, fov_scale=None):
 
+        '''
+        Args:
+            R 两个相机坐标系统的旋转矩阵(2 to 1)
+            T 两个相机坐标系统的平移矩阵(2 to 1)
+        Returns:
+            R1: 第1个相机校正旋转矩阵(3x3)
+            R2: 第2个相机校正旋转矩阵(3x3)
+            P1: 第1个相机校正投影矩阵(3x4)
+            P2: 第2个相机校正投影矩阵(3x4)
+            Q: 重投影矩阵(4x4)
+        '''
+
+        # 平移向量/旋转角度向量
         tvec = T.astype(np.float64).reshape((3, 1))
         rvec, _ = cv2.Rodrigues(R.astype(np.float64))
 
+        # 旋转角度平分, 目的是让2个相机的图像共面
         rvec *= -0.5
         r_r, _ = cv2.Rodrigues(rvec)
 
+        # 计算r_r坐标下的平移向量
         t = r_r @ tvec
         uu = np.array([1 if t[0, 0] > 0 else -1, 0, 0]).reshape((3, 1))
 
+        #               ^  e3  叉乘得到垂直e1,e2平面的法向量
+        #               │
+        #               │            ^   相机2平分后的平移向量(t)
+        #        ───────┼───────────/ e2
+        #       ╱       │          ╱
+        #      ╱        │         ╱
+        #     ╱                  ╱ theta
+        #    ╱─────────────────────> e1 相机1坐标系(1,0,0)
         ww = np.cross(t, uu, axis=0)
         nw = np.linalg.norm(ww)
         if nw > 0.0:
@@ -40,11 +63,16 @@ class PinHoleModel(object):
 
         wr, _ = cv2.Rodrigues(ww)
 
+        # 计算同行
         ri1 = wr @ r_r.T
         R1 = ri1.astype(np.float64)
         ri2 = wr @ r_r
         R2 = ri2.astype(np.float64)
         tnew = ri2 @ tvec
+
+        for K, D, R
+
+        return R1, R2
 
     def estimateNewCameraMatrixForUndistortRectify(
             self, K, D, image_size,
@@ -87,7 +115,7 @@ class PinHoleModel(object):
 
         new_f = np.array((f,f))
         new_c = -cn * f + np.array((w, h * aspect_ratio)) * 0.5
-        
+
         # restore aspect ratio
         new_f[1] /= aspect_ratio
         new_c[1] /= aspect_ratio

@@ -25,9 +25,9 @@ class CameraPose(object):
         self.t = t
 
     @property
-    def I(self): # noqa: E743
+    def I(self):  # noqa: E743
         '''
-        https://erlangai-blog-assets.oss-cn-hangzhou.aliyuncs.com/Misc/camera/extrinsic_transform_pose.png
+        http://assets.erlangai.cn/Misc/camera/Extrinsic_Matrix_from_Camera_Pose.png
         '''
         return CameraPose(self.r.T, - (self.r.T @ self.t))
 
