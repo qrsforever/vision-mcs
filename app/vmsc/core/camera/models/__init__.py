@@ -8,8 +8,8 @@
 # @date 2023-01-09 22:10
 
 
-from .pinhole import PinHoleModel
+from .pinhole import PinHoleModel, PinHoleRadTanModel
 from .fisheye import FishEyeModel
 
 
-__all__ = [PinHoleModel, FishEyeModel]
+__all__ = [PinHoleModel, FishEyeModel, PinHoleRadTanModel]

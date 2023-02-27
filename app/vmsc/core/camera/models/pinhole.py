@@ -16,12 +16,15 @@ class PinHoleModel(object):
 
     '''
 
+    def __init__(self, lazy=False):
+        if lazy:
+            self.stereo_rectify = cv2.stereoRectify
+
     def stereo_rectify(
             self,
             camera_matrix1, dist_coeffs1,
             camera_matrix2, dist_coeffs2,
             image_size, R, T, flags,
-            R1=None, R2=None, P1=None, P2=None, Q=None,
             new_image_size=None, balance=None, fov_scale=None):
 
         '''
@@ -38,7 +41,7 @@ class PinHoleModel(object):
 
         # 平移向量/旋转角度向量
         tvec = T.astype(np.float64).reshape((3, 1))
-        rvec, _ = cv2.Rodrigues(R.astype(np.float64))
+        rvec, _ = cv2.Rodrigues(R.astype(np.float64))  # 模表示旋转角度
 
         # 旋转角度平分, 目的是让2个相机的图像共面
         rvec *= -0.5
@@ -59,82 +62,103 @@ class PinHoleModel(object):
         ww = np.cross(t, uu, axis=0)
         nw = np.linalg.norm(ww)
         if nw > 0.0:
+            # 通过每一角度对应的模长计算旋转角度
             ww *= np.arccos(np.abs(t[0]) / np.linalg.norm(t)) / nw
 
         wr, _ = cv2.Rodrigues(ww)
 
-        # 计算同行
+        # 同行
         ri1 = wr @ r_r.T
         R1 = ri1.astype(np.float64)
         ri2 = wr @ r_r
         R2 = ri2.astype(np.float64)
         tnew = ri2 @ tvec
 
-        for K, D, R
-
-        return R1, R2
-
-    def estimateNewCameraMatrixForUndistortRectify(
-            self, K, D, image_size,
-            R, P=None, balance=None, new_image_size=None,
-            fov_scale=None):
-
-        w, h = image_size
         balance = min(max(balance, 0), 1) if balance is not None else 0.0
 
-        _points = np.expand_dims(np.array(
-            [[w / 2, 0],
-             [w, h / 2],
-             [w / 2, h],
-             [0, h / 2]], dtype=np.float64), 1)
+        def _calculate_projection(K, D, R):  # {{{
+            w, h = image_size
 
-        points = np.squeeze(self.undistortPoints(_points, K, D, R=R))
-        cn = np.mean(points, axis=0).flatten()
+            _points = np.expand_dims(np.array(
+                [[w / 2, 0],
+                 [w, h / 2],
+                 [w / 2, h],
+                 [0, h / 2]], dtype=np.float64), 1)
 
-        aspect_ratio = K[0, 0] / K[1, 1]
+            points = np.squeeze(self.undistort_points(_points, K, D, R=R))
+            cn = np.mean(points, axis=0).flatten()
 
-        cn[1] *= aspect_ratio
-        points[:, 1] *= aspect_ratio
+            aspect_ratio = K[0, 0] / K[1, 1]
 
-        minx = points[:, 0].min()
-        maxx = points[:, 0].max()
-        miny = points[:, 1].min()
-        maxy = points[:, 1].max()
+            cn[1] *= aspect_ratio
+            points[:, 1] *= aspect_ratio
 
-        f1 = w * 0.5/(cn[0] - minx)
-        f2 = w * 0.5/(maxx - cn[0])
-        f3 = h * 0.5 * aspect_ratio/(cn[1] - miny)
-        f4 = h * 0.5 * aspect_ratio/(maxy - cn[1])
+            minx = points[:, 0].min()
+            maxx = points[:, 0].max()
+            miny = points[:, 1].min()
+            maxy = points[:, 1].max()
 
-        fmin = min(f1, min(f2, min(f3, f4)))
-        fmax = max(f1, max(f2, max(f3, f4)))
+            f1 = w * 0.5 / (cn[0] - minx)
+            f2 = w * 0.5 / (maxx - cn[0])
+            f3 = h * 0.5 * aspect_ratio / (cn[1] - miny)
+            f4 = h * 0.5 * aspect_ratio / (maxy - cn[1])
 
-        f = balance * fmin + (1.0 - balance) * fmax
+            fmin = min(f1, min(f2, min(f3, f4)))
+            fmax = max(f1, max(f2, max(f3, f4)))
 
-        f *= 1.0 / fov_scale if fov_scale is not None and fov_scale > 0 else 1.0
+            f = balance * fmin + (1.0 - balance) * fmax
 
-        new_f = np.array((f,f))
-        new_c = -cn * f + np.array((w, h * aspect_ratio)) * 0.5
+            f *= 1.0 / fov_scale if fov_scale is not None and fov_scale > 0 else 1.0
 
-        # restore aspect ratio
-        new_f[1] /= aspect_ratio
-        new_c[1] /= aspect_ratio
+            new_f = np.array((f, f))
+            new_c = -cn * f + np.array((w, h * aspect_ratio)) * 0.5
 
-        if newImageSize is not None:
-            rx = newImageSize[0] / image_size[0]
-            ry = newImageSize[1] / image_size[1]
+            new_f[1] /= aspect_ratio
+            new_c[1] /= aspect_ratio
 
-            new_f[0] *= rx
-            new_f[1] *= ry
-            new_c[0] *= rx
-            new_c[1] *= ry
+            if new_image_size is not None:
+                rx = new_image_size[0] / image_size[0]
+                ry = new_image_size[1] / image_size[1]
 
-        P=np.array([[new_f[0], 0, new_c[0]],
-                    [0, new_f[1], new_c[1]],
-                    [0,        0,       1]])
-        return P
+                new_f[0] *= rx
+                new_f[1] *= ry
+                new_c[0] *= rx
+                new_c[1] *= ry
 
-    def undistort_rectify(self, camera_matrix, dist_coeffs, R, new_camera_matrix, image_size, m1type):
+            P = np.array([[new_f[0], 0, new_c[0]],
+                        [0, new_f[1], new_c[1]],
+                        [0, 0, 1]])
+            return P  # }}}
+
+        new_k1 = _calculate_projection(camera_matrix1, dist_coeffs1, R1)
+        new_k2 = _calculate_projection(camera_matrix2, dist_coeffs2, R2)
+
+        fc_new = min(new_k1[1, 1], new_k2[1, 1])
+        cc_new = np.array([[new_k1[0, 2], new_k1[1, 2]], [new_k2[0, 2], new_k2[1, 2]]])
+
+        if flags & cv2.CALIB_ZERO_DISPARITY == cv2.CALIB_ZERO_DISPARITY:
+            cc_new[0, :] = (cc_new[0, :] + cc_new[1, :]) * 0.5
+            cc_new[1, :] = cc_new[0, :]
+        else:
+            cc_new[0, 1] = (cc_new[0, 1] + cc_new[1, 1]) * 0.5
+            cc_new[1, 1] = cc_new[0, 1]
+
+        P1 = np.array([[fc_new, 0, cc_new[0, 0], 0],
+                       [0, fc_new, cc_new[0, 1], 0],
+                       [0, 0, 1, 0]], dtype=np.float64)
+
+        P2 = np.array([[fc_new, 0, cc_new[1, 0], tnew[0] * fc_new],  # baseline * focal length;,
+                       [0, fc_new, cc_new[1, 1], 0],
+                       [0, 0, 1, 0]], dtype=np.float64)
+
+        Q = np.array([[1, 0, 0, -cc_new[0, 0]],
+                       [0, 1, 0, -cc_new[0, 1]],
+                       [0, 0, 0, fc_new],
+                       [0, 0, -1. / tnew[0], (cc_new[0, 0] - cc_new[1, 0]) / tnew[0]]], dtype=np.float64)
+
+        return R1, R2, P1, P2, Q
+
+    def undistort_rectify_map(self, camera_matrix, dist_coeffs, R, new_camera_matrix, image_size, m1type):
         return cv2.initUndistortRectifyMap(
                 camera_matrix,
                 dist_coeffs, R,
