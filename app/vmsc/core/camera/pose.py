@@ -38,3 +38,6 @@ class CameraPose(object):
         | 0    1  |    | 0    1  |   |   0        1     |
         '''
         return CameraPose(self.r @ other.r, self.r @ other.t + self.t)
+
+    def __str__(self):
+        return f'R = {self.r}\nT = {self.t}'
