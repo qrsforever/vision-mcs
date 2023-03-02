@@ -14,6 +14,9 @@ import numpy as np
 from vmsc.utils.logger import EasyLoggerMP as logger
 from vmsc.core.camera import CameraParam, CameraPair
 
+DEBUG_INFO = False
+STEREO_MATCHER = 'SGBM'
+
 
 class MultiCameraSystem(object):
     '''
@@ -23,6 +26,9 @@ class MultiCameraSystem(object):
         self.cameras = {}
         self.camera_pairs = {}
         self.reference_camera = ''
+        # if matcher == 'sgbm':
+        #     from vmsc.core.camera.matcher import StereoMatcherSGBM
+        #     self.matcher = StereoMatcherSGBM()
 
     def load_and_init(self, yaml_path, pairs):
         with open(yaml_path, 'r') as f:
@@ -34,21 +40,24 @@ class MultiCameraSystem(object):
             intrinsics = params['intrinsics']
             self.cameras[cam] = CameraParam(cam, intrinsics, extrinsics)
 
-        for camera in self.cameras.values():
-            logger.info(camera)
+        if DEBUG_INFO:
+            for camera in self.cameras.values():
+                logger.info(camera)
 
         # cameras pairs
         cams = []
         for cam1, cam2 in pairs:
             self.camera_pairs[(cam1, cam2)] = CameraPair(self.cameras[cam1], self.cameras[cam2])
+            # 相机对里共同配对的相机就是参考相机
             if self.reference_camera == '':
                 if len(cams) > 0:
                     self.reference_camera = cam1 if cam1 in cams else cam2
                     logger.info('reference_camera: %s' % self.reference_camera)
                 cams.extend([cam1, cam2])
 
-        for pair in self.camera_pairs.values():
-            logger.info(pair)
+        if DEBUG_INFO:
+            for pair in self.camera_pairs.values():
+                logger.info(pair)
 
     def remap_images(self, multiviews):
         rect_imgs = {}
@@ -62,7 +71,6 @@ class MultiCameraSystem(object):
 
 if __name__ == "__main__":
     import os
-    import time
     import matplotlib.pyplot as plt
 
     curdir = os.path.abspath(os.path.dirname(__file__))
@@ -81,5 +89,3 @@ if __name__ == "__main__":
         plt.imshow(tmp_img)
         plt.title(f'{cam1}, {cam2}')
     plt.show()
-
-    time.sleep(1)

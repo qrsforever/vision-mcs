@@ -39,16 +39,15 @@ class PinHoleModel(object):
             Q: 重投影矩阵(4x4)
         '''
 
+        # https://zhuanlan.zhihu.com/p/348846552
         # 平移向量/旋转角度向量
         tvec = T.astype(np.float64).reshape((3, 1))
         rvec, _ = cv2.Rodrigues(R.astype(np.float64))  # 模表示旋转角度
 
-        # 旋转角度平分, 目的是让2个相机的图像共面
-        rvec *= -0.5
+        rvec *= -0.5  # 旋转左右相机使它们的基坐标系平行(但不一定共面）
         r_r, _ = cv2.Rodrigues(rvec)
 
-        # 计算r_r坐标下的平移向量
-        t = r_r @ tvec
+        t = r_r @ tvec  # 重新计算新基下的平移向量
         uu = np.array([1 if t[0, 0] > 0 else -1, 0, 0]).reshape((3, 1))
 
         #               ^  e3  叉乘得到垂直e1,e2平面的法向量
@@ -62,7 +61,9 @@ class PinHoleModel(object):
         ww = np.cross(t, uu, axis=0)
         nw = np.linalg.norm(ww)
         if nw > 0.0:
+            # 左右相机各自旋转, 将原左(右)相机的X轴于平移向量t重合, 即绕这两个向量的法向量旋转
             # 通过每一角度对应的模长计算旋转角度
+            # 模表示旋转角度
             ww *= np.arccos(np.abs(t[0]) / np.linalg.norm(t)) / nw
 
         wr, _ = cv2.Rodrigues(ww)
@@ -147,14 +148,14 @@ class PinHoleModel(object):
                        [0, fc_new, cc_new[0, 1], 0],
                        [0, 0, 1, 0]], dtype=np.float64)
 
-        P2 = np.array([[fc_new, 0, cc_new[1, 0], tnew[0] * fc_new],  # baseline * focal length;,
+        P2 = np.array([[fc_new, 0, cc_new[1, 0], tnew[0][0] * fc_new],  # baseline * focal length;,
                        [0, fc_new, cc_new[1, 1], 0],
                        [0, 0, 1, 0]], dtype=np.float64)
 
         Q = np.array([[1, 0, 0, -cc_new[0, 0]],
                        [0, 1, 0, -cc_new[0, 1]],
                        [0, 0, 0, fc_new],
-                       [0, 0, -1. / tnew[0], (cc_new[0, 0] - cc_new[1, 0]) / tnew[0]]], dtype=np.float64)
+                       [0, 0, -1. / tnew[0][0], (cc_new[0, 0] - cc_new[1, 0]) / tnew[0][0]]], dtype=np.float64)
 
         return R1, R2, P1, P2, Q
 

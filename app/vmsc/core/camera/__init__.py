@@ -68,7 +68,7 @@ class CameraParam(object):
 class CameraPair(object):
     """
     """
-    lazy = True
+    lazy = False
 
     def __init__(self, cam1:CameraParam, cam2:CameraParam):
         assert cam1.mtype == cam2.mtype, f'{cam1.mtype} vs {cam2.mtype}'
@@ -115,6 +115,9 @@ class CameraPair(object):
 
     def rect_map(self, pos):
         return self._map1 if pos == 1 else self._map2
+
+    def disparity(self, matcher):
+        pass
 
     def __str__(self):
         s = '\n'

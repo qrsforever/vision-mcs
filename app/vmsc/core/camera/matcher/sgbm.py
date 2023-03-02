@@ -27,8 +27,8 @@ class StereoMatcherSGBM(cv2.StereoSGBM):
                 P1=8 * 2 * window_size**2,
                 P2=32 * 2 * window_size**2)
 
-    def match(self,img1, img2):
-        return self.matcher.compute(img1, img2).astype(np.float32) / 16.0
+    def match(self, rect_img1, rect_img2):
+        return self.matcher.compute(rect_img1, rect_img2).astype(np.float32) / 16.0
 
     def reconstruct(self, img_disp0, img_rect0, Q, P=None):
         xyz = cv2.reprojectImageTo3D(img_disp0, Q)
