@@ -18,6 +18,9 @@ class FishEyeModel(PinHoleModel):
 
     def __init__(self, lazy=False):
         if lazy:
+            # stereoRectify(
+            # K1, D1, K2, D2, imageSize, R, tvec, flags[, R1[, R2[, P1[, P2[, Q[,
+            # newImageSize[, balance[, fov_scale]]]]]]]]) -> R1, R2, P1, P2, Q
             self.stereo_rectify = cv2.fisheye.stereoRectify
 
     def undistort_rectify_map(self, camera_matrix, dist_coeffs, R, new_camera_matrix, image_size, m1type):

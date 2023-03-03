@@ -18,14 +18,19 @@ class PinHoleModel(object):
 
     def __init__(self, lazy=False):
         if lazy:
-            self.stereo_rectify = cv2.stereoRectify
+            # stereoRectify(
+            # cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, imageSize,
+            # R, T[, R1[, R2[, P1[, P2[, Q[, flags[, alpha[, newImageSize]]]]]]]])
+            # -> R1, R2, P1, P2, Q, validPixROI1, validPixROI2
+            # also do: R1, R2, P1, P2, Q, *_ = cv2.stereoRectify()
+            self.stereo_rectify = lambda *argv, **kwargs: cv2.stereoRectify(*argv, **kwargs)[:5]
 
     def stereo_rectify(
             self,
             camera_matrix1, dist_coeffs1,
             camera_matrix2, dist_coeffs2,
             image_size, R, T, flags,
-            new_image_size=None, balance=None, fov_scale=None):
+            newImageSize=None, balance=None, fov_scale=None):
 
         '''
         Args:
@@ -117,9 +122,9 @@ class PinHoleModel(object):
             new_f[1] /= aspect_ratio
             new_c[1] /= aspect_ratio
 
-            if new_image_size is not None:
-                rx = new_image_size[0] / image_size[0]
-                ry = new_image_size[1] / image_size[1]
+            if newImageSize is not None:
+                rx = newImageSize[0] / image_size[0]
+                ry = newImageSize[1] / image_size[1]
 
                 new_f[0] *= rx
                 new_f[1] *= ry
