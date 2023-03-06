@@ -11,15 +11,14 @@
 import math
 import cv2
 import numpy as np
-import open3d as o3d
 
 
-class StereoMatcherSGBM(cv2.StereoSGBM):
+class StereoMatcherSGBM(object):
     """
     """
 
     def __init__(self, min_disp=0, num_disp=320, speckle_range=5, window_size=11):
-        self.matcher = cv2.StereoSGBM_create(
+        self.matcher = cv2.StereoSGBM.create(
                 minDisparity=min_disp,
                 numDisparities=num_disp,
                 uniquenessRatio=5,
@@ -45,24 +44,20 @@ class StereoMatcherSGBM(cv2.StereoSGBM):
         # else:
         #     img_channels = 3
         # 视差图的每个像素值(CV_16S)由一个16bit表示,其中低位的4位存储的是视差值得小数部分,
-        # 真实视差值应该是该值除以16, 映射后再乘以16(毫米级真实位置)
+        # 真实视差值应该是该值除以16
         return self.matcher.compute(rect_img1, rect_img2).astype(np.float32) / 16.0
 
-    def reconstruct(self, img_disp0, img_rect0, Q, P=None):
-        xyz = cv2.reprojectImageTo3D(img_disp0, Q)
+    def reconstruct(self, disparity, rect_img1, Q, P=None):
+        world_xyz = cv2.reprojectImageTo3D(disparity, Q)
 
-        mask_depth = (xyz[:, :, 2] < 5.0) & (xyz[:, :, 2] > 0.1)
-        mask_brght = (img_rect0[:, :, 0] > 30) & (img_rect0[:, :, 0] < 250)
+        mask_depth = (world_xyz[:, :, 2] < 5.0) & (world_xyz[:, :, 2] > 0.1)
+        mask_brght = (rect_img1[:, :, 0] > 30) & (rect_img1[:, :, 0] < 250)
+        mask_point = (mask_brght & mask_depth).flatten()
 
-        xyz_linear = xyz.reshape((-1, 3))
-        colors_linear = img_rect0.reshape((-1, 3))
-        mask_linear = (mask_brght & mask_depth).flatten()
+        world_xyz = world_xyz.reshape((-1, 3))
+        color_img = rect_img1.reshape((-1, 3))
+        world_xyz, color_img = world_xyz[mask_point], color_img[mask_point]
 
         if P is not None:
-            xyz_linear = (P.r @ xyz_linear.T).T + P.t
-
-        pcd = o3d.geometry.PointCloud()
-        pcd.points = o3d.utility.Vector3dVector(xyz_linear[mask_linear])
-        pcd.colors = o3d.utility.Vector3dVector(colors_linear[mask_linear] / 255.0)
-
-        return pcd
+            world_xyz = (P.r @ world_xyz.T).T + P.t
+        return world_xyz, color_img

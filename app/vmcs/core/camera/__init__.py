@@ -71,13 +71,13 @@ class CameraParam(object):
         return self._D
 
     @property
-    def pose(self):
+    def pose_cam_world(self):
         return self._pose
 
     def __str__(self):
         s = '\n'
         s += '-' * 20 + '[' + self.name + f'({self.image_size})]' + '-' * 20
-        s += f'\nK = {self.K}\nD = {self.D}\n{self.pose}\n'
+        s += f'\nK = {self.K}\nD = {self.D}\n{self.pose_cam_world}\n'
         return s
 
 
@@ -97,17 +97,18 @@ class StereoPair(object):
         elif cam1.mtype == CameraModel.PINHOLE_RADTAN:
             self.model = PinHoleRadTanModel(self.lazy)
 
+        self._pose_cam2_cam1 = None
         self.cam1, self.cam2 = cam1, cam2
         self._R1, self._R2, self._P1, self._P2, self._Q, \
                 self._map1, self._map2 = self.stereo_rectify(cam1, cam2)
 
     @property
     def pose_r(self):
-        return self.pose_cam2_cam1.r
+        return self._pose_cam2_cam1.r
 
     @property
     def pose_t(self):
-        return self.pose_cam2_cam1.t
+        return self._pose_cam2_cam1.t
 
     def R(self, pos:StereoPos):
         return self._R1 if pos == StereoPos.L else self._R2
@@ -116,19 +117,43 @@ class StereoPair(object):
         return self._P1 if pos == StereoPos.L else self._P2
 
     @property
+    def R1(self):
+        return self._R1
+    
+    @property
+    def R2(self):
+        return self._R2
+
+    @property
+    def P1(self):
+        return self._P1
+
+    @property
+    def P2(self):
+        return self._P2
+
+    @property
     def Q(self):
         return self._Q
+
+    @property
+    def pose_cam2_cam1(self):
+        return self._pose_cam2_cam1
+
+    @property
+    def pose_rect_cam(self):
+        return CameraPose(self._R1, np.zeros(3))
 
     def get_rect_map(self, pos:StereoPos):
         return self._map1 if pos == StereoPos.L else self._map2
 
     def stereo_rectify(self, cam1, cam2):
         # transforms points from the cam1 frame to the cam2 frame
-        self.pose_cam2_cam1 = cam2.pose @ cam1.pose.I
+        self._pose_cam2_cam1 = cam2.pose_cam_world @ cam1.pose_cam_world.I
         image_size = cam1.image_size
         R1, R2, P1, P2, Q = self.model.stereo_rectify(
                 cam1.K, cam1.D, cam2.K, cam2.D, image_size,
-                self.pose_cam2_cam1.r, self.pose_cam2_cam1.t, flags=cv2.CALIB_ZERO_DISPARITY)
+                self._pose_cam2_cam1.r, self._pose_cam2_cam1.t, flags=cv2.CALIB_ZERO_DISPARITY)
 
         mapx1, mapy1 = self.model.undistort_rectify_map(cam1.K, cam1.D, R1, P1, image_size, cv2.CV_32F)
         mapx2, mapy2 = self.model.undistort_rectify_map(cam2.K, cam2.D, R2, P2, image_size, cv2.CV_32F)
@@ -147,7 +172,7 @@ class StereoPair(object):
         # 结合统计的方法，筛选出
 
         matcher = StereoMatcherSGBM()
-        return matcher.match(rect_img1, rect_img2)
+        return rect_img1, rect_img2, matcher, matcher.match(rect_img1, rect_img2)
 
     def __str__(self):
         s = '\n'
