@@ -10,4 +10,5 @@
 
 from .sgbm import StereoMatcherSGBM
 
+
 __all__ = [StereoMatcherSGBM]

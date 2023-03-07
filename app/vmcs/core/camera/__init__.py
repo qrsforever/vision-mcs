@@ -45,7 +45,7 @@ class CameraParam(object):
             mtype = CameraModel.PINHOLE_RADTAN
         else:
             raise 'unkown type:[%s]' % intrinsics['type']
-        self.name = name
+        self._name = name
         self.mtype = mtype
         intrinsics = intrinsics['parameters']
         self._image_size = intrinsics['image_size']
@@ -59,8 +59,20 @@ class CameraParam(object):
         self._pose = CameraPose.from_axis_angle(extrinsics['axis_angle'], extrinsics['translation'])
 
     @property
+    def name(self):
+        return self._name
+
+    @property
     def image_size(self):
         return self._image_size
+
+    @property
+    def w(self):
+        return self._image_size[0]
+
+    @property
+    def h(self):
+        return self._image_size[1]
 
     @property
     def K(self):
@@ -69,6 +81,30 @@ class CameraParam(object):
     @property
     def D(self):
         return self._D
+
+    @property
+    def r(self):
+        return self._pose.r
+
+    @property
+    def t(self):
+        return self._pose.t
+
+    @property
+    def fx(self):
+        return self._K[0][0]
+
+    @property
+    def fy(self):
+        return self._K[1][1]
+
+    @property
+    def cx(self):
+        return self._K[0][2]
+
+    @property
+    def cy(self):
+        return self._K[1][2]
 
     @property
     def pose_cam_world(self):
@@ -119,7 +155,7 @@ class StereoPair(object):
     @property
     def R1(self):
         return self._R1
-    
+
     @property
     def R2(self):
         return self._R2
