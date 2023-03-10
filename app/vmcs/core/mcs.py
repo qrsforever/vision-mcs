@@ -94,7 +94,7 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt  # noqa
 
     curdir = osp.abspath(osp.dirname(__file__))
-    assets = f'{curdir}/../../../asset'
+    assets = f'{curdir}/../../../asset/camera'
 
     mcs = MultiCameraSystem()
     camera_pairs = [('cam1', 'cam2'), ('cam2', 'cam3'), ('cam4', 'cam2')]

@@ -9,6 +9,7 @@ def PythonSysPath(**kwargs):
     dependencies = [
         os.path.join(DIR_OF_THIS_SCRIPT, 'python'),
         os.path.join(DIR_OF_THIS_SCRIPT, 'app/vmsc'),
+        os.path.join(DIR_OF_THIS_SCRIPT, 'external'),
         os.path.join(DIR_OF_THIS_SCRIPT, 'test/pi'),
     ]
 
