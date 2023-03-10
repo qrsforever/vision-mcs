@@ -12,12 +12,18 @@ import math
 import cv2
 import numpy as np
 
+from . import StereoMatcher
 
-class StereoMatcherSGBM(object):
+
+class StereoMatcherSGBM(StereoMatcher):
     """
     """
 
     def __init__(self, min_disp=0, num_disp=320, speckle_range=5, window_size=11):
+        self.auto_num_disp = False
+        if num_disp < 0:
+            self.auto_num_disp = True
+            num_disp = 320
         self.matcher = cv2.StereoSGBM.create(
                 minDisparity=min_disp,
                 numDisparities=num_disp,
@@ -43,8 +49,8 @@ class StereoMatcherSGBM(object):
         kp, des = orb.compute(img, kp)
         return kp, des
 
-    def match(self, rect_img1, rect_img2, fast=True):
-        if not fast:
+    def match(self, rect_img1, rect_img2):
+        if self.auto_num_disp:
             if rect_img1.ndim == 2:
                 nchannels = 1
             else:
@@ -78,15 +84,4 @@ class StereoMatcherSGBM(object):
         return self.matcher.compute(rect_img1, rect_img2).astype(np.float32) / 16.0
 
     def reconstruct(self, disparity, rect_img1, Q, P=None):
-        world_xyz = cv2.reprojectImageTo3D(disparity, Q)
-        mask_depth = (world_xyz[:, :, 2] < 5.0) & (world_xyz[:, :, 2] > 0.1)
-        mask_brght = (rect_img1[:, :, 0] > 30) & (rect_img1[:, :, 0] < 250)
-        mask_point = (mask_brght & mask_depth).flatten()
-
-        world_xyz = world_xyz.reshape((-1, 3))
-        color_map = rect_img1.reshape((-1, 3))
-        world_xyz, color_map = world_xyz[mask_point], color_map[mask_point]
-
-        if P is not None:
-            world_xyz = (P.r @ world_xyz.T).T + P.t
-        return world_xyz, color_map
+        return super().reconstruct(disparity, rect_img1, Q, P)

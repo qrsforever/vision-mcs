@@ -13,8 +13,10 @@ import numpy as np  # noqa
 import os.path as osp
 
 from vmcs.utils.logger import EasyLoggerMP as logger
-from vmcs.core.camera import CameraParam, StereoPair, StereoPos
 from vmcs.utils.visual import View3D
+from vmcs.core.camera import CameraParam, StereoPair
+from vmcs.core.const import StereoPos
+from vmcs.core.camera.matcher import StereoMatcherSGBM, StereoMatcherRAFT
 
 
 DEBUG_INFO = False
@@ -25,10 +27,16 @@ class MultiCameraSystem(object):
     '''
     '''
 
-    def __init__(self):
+    def __init__(self, matcher_type='sgbm', matcher_args={}):
         self.cameras = {}
         self.camera_pairs = {}
         self.reference_camera = ''
+        if matcher_type == 'sgbm':
+            self.matcher = StereoMatcherSGBM(**matcher_args)
+        elif matcher_type == 'raft':
+            self.matcher = StereoMatcherRAFT(**matcher_args)
+        else:
+            raise
 
     def load_and_init(self, yaml_path, pairs, reference_camera):
         with open(yaml_path, 'r') as f:
@@ -73,10 +81,10 @@ class MultiCameraSystem(object):
         world_xyz_points = []
         pose_refer_world = self.cameras[self.reference_camera].pose_cam_world
         for (cam1, cam2), cam_pair in self.camera_pairs.items():
-            rect_img1, rect_img2, matcher, disparity = cam_pair.stereo_disparity(images[cam1], images[cam2])
+            rect_img1, rect_img2, disparity = cam_pair.stereo_disparity(images[cam1], images[cam2], self.matcher)
             pose_world_rect = self.cameras[cam1].pose_cam_world.I @ cam_pair.pose_rect_cam.I
             pose_refer_rect = pose_refer_world @ pose_world_rect
-            world_xyz, color_map = matcher.reconstruct(disparity, rect_img1, cam_pair.Q, P=pose_refer_rect)
+            world_xyz, color_map = self.matcher.reconstruct(disparity, rect_img1, cam_pair.Q, P=pose_refer_rect)
             if draw:
                 vis.add_point_cloud(world_xyz, color_map, outlier=(20, 1.5))
             world_xyz_points.append(world_xyz)
@@ -94,11 +102,14 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt  # noqa
 
     curdir = osp.abspath(osp.dirname(__file__))
-    assets = f'{curdir}/../../../asset/camera'
+    assets = f'{curdir}/../../../asset'
 
-    mcs = MultiCameraSystem()
+    # mcs = MultiCameraSystem()
+    mcs = MultiCameraSystem(
+            matcher_type='raft',
+            matcher_args={'ckpt_path': f'{assets}/models/raftstereo-eth3d.pth'})
     camera_pairs = [('cam1', 'cam2'), ('cam2', 'cam3'), ('cam4', 'cam2')]
-    mcs.load_and_init(f'{assets}/calibration_result.yaml', camera_pairs, 'cam2')
+    mcs.load_and_init(f'{assets}/camera/calibration_result.yaml', camera_pairs, 'cam2')
 
-    images = {cam:f'{assets}/{cam}/001.png'.format(cam=cam) for cam in mcs.cameras.keys()}
+    images = {cam:f'{assets}/camera/{cam}/001.png'.format(cam=cam) for cam in mcs.cameras.keys()}
     mcs.reconstruct_points_3d(images, draw=True)
