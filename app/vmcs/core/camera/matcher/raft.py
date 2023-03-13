@@ -25,7 +25,7 @@ class RaftArgs(object):
         self.corr_levels = 4
         self.corr_radius = 4
         self.n_downsample = 2
-        self.slow_fast_gru = False
+        self.slow_fast_gru = True
         self.n_gru_layers = 3
 
 

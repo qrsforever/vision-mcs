@@ -191,7 +191,7 @@ class EasyLogger(object):
 
 
 class EasyLoggerMP(EasyLogger):
-    logger = easy_get_logger('vmcs', mp=True)
+    logger = easy_get_logger('vmcs-mp', mp=True)
 
 
 @contextmanager

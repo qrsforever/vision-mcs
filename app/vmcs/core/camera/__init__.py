@@ -104,5 +104,6 @@ class CameraParam(object):
 
 
 from .disparity import StereoPair
+from .capture import VideoCapture
 
-__all__ = [CameraParam, StereoPair]
+__all__ = [CameraParam, StereoPair, VideoCapture]

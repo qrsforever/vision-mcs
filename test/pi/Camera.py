@@ -11,10 +11,6 @@ import cv2
 import threading
 import subprocess
 
-# cv2.createTrackbar('Brightness', wintitle, 100, 300, _on_change_brightness)
-# cv2.createTrackbar('Contrast', wintitle, 50, 300, _on_change_contrast)
-# cv2.createTrackbar('Saturation', wintitle, 90, 100, _on_change_saturation)
-# cv2.createTrackbar('Hue', wintitle, 15, 360, _on_change_hue)
 
 # v4l2-ctl -d /dev/video0 -l
 
@@ -132,7 +128,7 @@ class Camera(object):
 
         _capture.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         _capture.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
-        _capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'))
+        _capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G')) # solve: read/grab block
         _capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
         self.width = int(_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
