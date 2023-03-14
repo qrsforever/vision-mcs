@@ -1,7 +1,7 @@
 #!/bin/bash
 
-remote_hostnames=('pi')
-remote_relative_path=('/home/pi/codes/vision-mcs')
+remote_hostnames=('raspberry' 'orange')
+remote_relative_path=('/home/pi/codes/vision-mcs' '/root/codes/vision-mcs')
 
 cd $(dirname $0)
 
