@@ -29,14 +29,14 @@ if __name__ == "__main__":
 
 # PIN = 5
 # GPIO.setmode(GPIO.BCM)
-# 
+#
 # if __name__=="__main__":
 #     try:
 #         GPIO.setup(PIN, GPIO.IN) # pull_up_down=GPIO.PUD_UP)
 #         while True:
 #             print(GPIO.input(PIN))
 #             time.sleep(1)
-# 
+#
 #     except KeyboardInterrupt:
 #         pass
 #     finally:

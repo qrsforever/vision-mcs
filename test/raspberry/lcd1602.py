@@ -21,7 +21,7 @@ def get_ip():
     try:
         s.connect(('8.8.8.8', 80))
         val = s.getsockname()[0]
-    except:
+    except Exception:
         cmd = "hostname -I | cut -d\' \' -f1"
         val = check_output(cmd, shell=True).decode("utf-8").strip()
     finally:
@@ -33,6 +33,7 @@ def get_mac():
     node = uuid.getnode()
     return uuid.UUID(int=node).hex[-12:]
 
+
 lcd = CharLCD('PCF8574', 0x27, auto_linebreaks=False)
 lcd.clear()
 
@@ -42,4 +43,4 @@ while True:
 
     lcd.home()
     lcd.write_string(f'{lcd_line_1}\r\n{lcd_line_2}')
-    time.sleep(10)
+    time.sleep(120)

@@ -9,10 +9,17 @@
 
 
 import cv2
+import os
+import threading
 import time # noqa
+
+# from copy import deepcopy
 from vmcs.core.camera import VideoCapture
-from vmcs.utils.shell import utils_syscall
+from vmcs.utils.shell import utils_syscall, utils_mkdir
 from vmcs.utils.logger import EasyLogger as logger
+
+from raspberry.freqled import test_freqled_open, test_freqled_close
+from raspberry.eventele import test_ele_event
 
 
 if __name__ == "__main__":
@@ -22,6 +29,7 @@ if __name__ == "__main__":
     # 	/dev/video1
     # 	/dev/media0
     results = utils_syscall('v4l2-ctl --list-devices')
+    logger.info(results)
     cameras = {}
     curridx = -1
     for line in results.split('\n'):
@@ -45,24 +53,47 @@ if __name__ == "__main__":
         # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
         cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         vcaps[cam] = cap
+        utils_mkdir('./out/%s' % cam)
 
     for cap in vcaps.values():
         logger.info(cap)
 
-    while True:
+    class RecInfo:
+        count = 0
         frames = {}
+        lock = threading.Lock()
+
+    rec = RecInfo
+
+    def _save_images(channel):
+        logger.info(f'{os.getpid()}-{threading.currentThread().ident}: save')
+        with rec.lock:
+            for name, frame in rec.frames.items():
+                cv2.imwrite('./out/%s/%02d.jpg' % (name, rec.count), frame)
+            rec.count += 1
+
+    test_ele_event(_save_images)
+    test_freqled_open(1000, 90)
+    while True:
+        _frames = {}
         for cam, cap in vcaps.items():
             ret, frame = cap.read()
             if ret:
-                frames[cam] = frame
+                _frames[cam] = frame
                 cv2.imshow(cam, frame)
+
+        with rec.lock:
+            rec.frames = _frames
         key = cv2.waitKey(10) & 0xFF
         if key == ord('s'):
-            for name, frame in frames.items():
-                cv2.imwrite(f'./out/{name}.jpg', frame)
+            for name, frame in _frames.items():
+                cv2.imwrite('./out/%s/%02d.jpg' % (name, rec.count), frame)
+                rec.count += 1
         elif key == ord('q'):
+            logger.info(f'{os.getpid()}-{threading.currentThread().ident}: quit')
             break
 
     for cap in vcaps.values():
         cap.release()
     cv2.destroyAllWindows()
+    test_freqled_close()

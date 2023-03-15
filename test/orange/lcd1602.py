@@ -8,7 +8,11 @@
 # @date 2023-03-14 19:59
 
 import time
+import socket
+import uuid
 import smbus
+from subprocess import check_output
+
 
 BL = 0B00001000  # Backlight            0:off   1:on
 EN = 0B00000100  # Enable bit
@@ -23,12 +27,31 @@ BUS = smbus.SMBus(0)  # /dev/i2c-0
 LCD_ADDR = 0x27  # sudo i2cdetect -y -a 0
 
 
+def get_ip():
+    val = '0.0.0.0'
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(('8.8.8.8', 80))
+        val = s.getsockname()[0]
+    except Exception:
+        cmd = "hostname -I | cut -d\' \' -f1"
+        val = check_output(cmd, shell=True).decode("utf-8").strip()
+    finally:
+        s.close()
+    return val
+
+
+def get_mac():
+    node = uuid.getnode()
+    return uuid.UUID(int=node).hex[-12:]
+
+
 def main():
     init_lcd()
     while True:
-        show_on_lcd(LCD_LINE_1, '1234567890123456')
-        show_on_lcd(LCD_LINE_2, 'abcdefghijklmnop')
-        time.sleep(10)
+        show_on_lcd(LCD_LINE_1, f'IP:{get_ip()}')
+        show_on_lcd(LCD_LINE_2, f'ID:{get_mac()}')
+        time.sleep(120)
 
 
 def send_command(cmd):
@@ -66,7 +89,7 @@ def send_data(data):
     buf = ((data & 0x0F) << 4) | BL | EN | RS  # BL = 1, EN = 1, RW = 0, RS = 1
     BUS.write_byte(LCD_ADDR, buf)
     time.sleep(0.002)
-    buf &= 0xFB 
+    buf &= 0xFB
     BUS.write_byte(LCD_ADDR, buf)
 
 

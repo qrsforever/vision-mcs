@@ -9,7 +9,7 @@
 ## Install
 
 - sudo cp lcd1602.service /etc/systemd/system/lcd1602.service
-- sudo systemctl enable lcd.service
+- sudo systemctl enable lcd1602.service
 - sudo reboot
 
 ## V4L2-Ctrl

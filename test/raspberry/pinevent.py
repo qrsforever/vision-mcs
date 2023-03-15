@@ -14,7 +14,8 @@ import time
 PIN = 5
 GPIO.setmode(GPIO.BCM)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     try:
         GPIO.setup(PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         # method: 1
@@ -22,7 +23,7 @@ if __name__=="__main__":
         #     print(GPIO.input(PIN))
         #     time.sleep(1)
 
-        # method: 2 
+        # method: 2
         # while True:
         #     GPIO.wait_for_edge(PIN, GPIO.FAILING)
         #     print(GPIO.input(PIN))
@@ -31,8 +32,8 @@ if __name__=="__main__":
         def _mycallback(channel):
             if channel == PIN:
                 print(GPIO.input(PIN))
-        
-        GPIO.add_event_detect(PIN, GPIO.FALLING, callback= _mycallback, bouncetime=500)
+
+        GPIO.add_event_detect(PIN, GPIO.FALLING, callback=_mycallback, bouncetime=500)
         while True:
             time.sleep(1)
 

@@ -4,4 +4,4 @@ CUR_DIR=$(cd $(dirname ${BASH_SOURCE[0]}); pwd)
 
 [[ "${BASH_SOURCE[0]}" != "${0}" ]] && SOURCED=1 || SOURCED=0
 
-export PYTHONPATH=$CUR_DIR/app:$CUR_DIR/external:$CUR_DIR/external/raftstereo:$PYTHONPATH
+export PYTHONPATH=$CUR_DIR/app:$CUR_DIR/external:$CUR_DIR/external/raftstereo:$CUR_DIR/test:$PYTHONPATH
