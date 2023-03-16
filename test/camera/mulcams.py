@@ -13,13 +13,15 @@ import os
 import threading
 import time # noqa
 
-# from copy import deepcopy
+from copy import deepcopy
 from vmcs.core.camera import VideoCapture
 from vmcs.utils.shell import utils_syscall, utils_mkdir
 from vmcs.utils.logger import EasyLogger as logger
+from vmcs.utils.timer import TimerCycle
 
-from raspberry.freqled import test_freqled_open, test_freqled_close
-from raspberry.eventele import test_ele_event
+from raspberry.relaylam import test_relaylam_open, test_relaylam_close
+# from raspberry.freqled import test_freqled_open, test_freqled_close
+# from raspberry.eventele import test_ele_event
 
 
 if __name__ == "__main__":
@@ -46,7 +48,7 @@ if __name__ == "__main__":
 
     vcaps = {}
     for idx, source in cameras.items():
-        cam = 'cam-%d' % idx
+        cam = 'cam%d' % idx
         cap = VideoCapture(source, cam)
         # cap.set(cv2.CAP_PROP_FPS, 10) # TODO XW200 not work
         # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
@@ -66,28 +68,37 @@ if __name__ == "__main__":
     rec = RecInfo
 
     def _save_images(channel):
+        test_relaylam_open()
         logger.info(f'{os.getpid()}-{threading.currentThread().ident}: save')
         with rec.lock:
-            for name, frame in rec.frames.items():
-                cv2.imwrite('./out/%s/%02d.jpg' % (name, rec.count), frame)
-            rec.count += 1
+            _frames = deepcopy(rec.frames)
+        img = (1 + time.time()) * 1e9
+        for name, frame in _frames.items():
+            cv2.imwrite('./out/%s/%d.png' % (name, img), frame)
+        rec.count += 1
+        test_relaylam_close()
 
-    test_ele_event(_save_images)
-    test_freqled_open(1000, 90)
+    timer = TimerCycle(6.0, _save_images, args=(0,))
+    timer.start()
+    # test_ele_event(_save_images)
+    # test_freqled_open(1000, 90)
     while True:
         _frames = {}
         for cam, cap in vcaps.items():
             ret, frame = cap.read()
             if ret:
                 _frames[cam] = frame
-                cv2.imshow(cam, frame)
-
         with rec.lock:
             rec.frames = _frames
+
+        for name, frame in _frames.items():
+            cv2.imshow(name, frame)
+
         key = cv2.waitKey(10) & 0xFF
         if key == ord('s'):
+            img = (1 + time.time()) * 1e9
             for name, frame in _frames.items():
-                cv2.imwrite('./out/%s/%02d.jpg' % (name, rec.count), frame)
+                cv2.imwrite('./out/%s/%d.png' % (name, img), frame)
                 rec.count += 1
         elif key == ord('q'):
             logger.info(f'{os.getpid()}-{threading.currentThread().ident}: quit')
@@ -96,4 +107,5 @@ if __name__ == "__main__":
     for cap in vcaps.values():
         cap.release()
     cv2.destroyAllWindows()
-    test_freqled_close()
+    timer.cancel()
+    # test_freqled_close()
