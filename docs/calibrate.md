@@ -15,6 +15,17 @@
     kalibr_bagextractor --image-topics /cam1/image_raw /cam2/image_raw /cam3/image_raw /cam4/image_raw --output-folder bagdst --bag calib.bag
 
 
+# multical
+
+## apriltags2_ethz
+
+1. apt install libopencv-dev libeigen3-dev 
+2. pip3 install .
+
+## calibrate
+
+1. multical calibrate --name cam1 --output_path . --image_path . --cameras cam1   --boards aprilgrid_6x6.yaml --fix_aspect --distortion_model standard --iter 5
+
 # References
 
 1. https://medium.com/vacatronics/3-ways-to-calibrate-your-camera-using-opencv-and-python-395528a51615

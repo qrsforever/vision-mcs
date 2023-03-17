@@ -1,3 +1,9 @@
 [submodule "RAFT-Stereo"]
 	path = external/raftstereo
 	url = https://github.com/princeton-vl/RAFT-Stereo.git
+[submodule "apriltags2_ethz"]
+	path = external/apriltags2_ethz
+	url = https://github.com/safijari/apriltags2_ethz.git
+[submodule "multical"]
+	path = external/multical
+	url = https://github.com/oliver-batchelor/multical.git

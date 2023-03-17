@@ -56,6 +56,7 @@ if __name__ == "__main__":
         cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         vcaps[cam] = cap
         utils_mkdir('./out/%s' % cam)
+        break
 
     for cap in vcaps.values():
         logger.info(cap)
