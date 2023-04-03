@@ -8,4 +8,4 @@ boards:
     tag_spacing: 0.3
 
     min_rows: 2
-    min_points: 12
+    min_points: 10

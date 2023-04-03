@@ -60,7 +60,7 @@ class StereoMatcherSGBM(StereoMatcher):
             feat2_kp, feat2_des = self._find_features(rect_img2, 1000)
             matches = cv2.BFMatcher(cv2.NORM_HAMMING).knnMatch(feat1_des, feat2_des, k=2)
             good = []
-            for m,n in matches:
+            for m, n in matches:
                 if m.distance < 0.75 * n.distance:
                     good.append(m)
 

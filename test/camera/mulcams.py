@@ -19,7 +19,8 @@ from vmcs.utils.shell import utils_syscall, utils_mkdir
 from vmcs.utils.logger import EasyLogger as logger
 from vmcs.utils.timer import TimerCycle
 
-from raspberry.relaylam import test_relaylam_open, test_relaylam_close
+
+# from raspberry.relaylam import test_relaylam_open, test_relaylam_close
 # from raspberry.freqled import test_freqled_open, test_freqled_close
 # from raspberry.eventele import test_ele_event
 
@@ -33,30 +34,31 @@ if __name__ == "__main__":
     results = utils_syscall('v4l2-ctl --list-devices')
     logger.info(results)
     cameras = {}
-    curridx = -1
+    curridx = 0 
+    flag = False
     for line in results.split('\n'):
         if 'XW200' in line:
-            curridx = int(line[line.rfind('.') + 1: -2])
-        elif '/dev/' in line and curridx > 0:
+            # curridx = int(line[line.rfind('.') + 1: -2])
+            curridx += 1
+            flag = True
+        elif '/dev/' in line and flag:
             if curridx not in cameras.keys():
                 cameras[curridx] = line.strip()
                 if len(cameras) == 4:
                     break
         else:
-            curridx = -1
+            flag = False
     logger.info(cameras)
-
     vcaps = {}
     for idx, source in cameras.items():
         cam = 'cam%d' % idx
         cap = VideoCapture(source, cam)
-        # cap.set(cv2.CAP_PROP_FPS, 10) # TODO XW200 not work
-        # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
-        # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
         cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        cap.set(cv2.CAP_PROP_FPS, 10) # TODO XW200 not work for < 30
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920) # v4l2-ctl --device=/dev/video0 --list-formats-ext
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
         vcaps[cam] = cap
         utils_mkdir('./out/%s' % cam)
-        break
 
     for cap in vcaps.values():
         logger.info(cap)
@@ -69,17 +71,17 @@ if __name__ == "__main__":
     rec = RecInfo
 
     def _save_images(channel):
-        test_relaylam_open()
-        logger.info(f'{os.getpid()}-{threading.currentThread().ident}: save')
+        # test_relaylam_open()
         with rec.lock:
             _frames = deepcopy(rec.frames)
         img = (1 + time.time()) * 1e9
         for name, frame in _frames.items():
             cv2.imwrite('./out/%s/%d.png' % (name, img), frame)
         rec.count += 1
-        test_relaylam_close()
+        # test_relaylam_close()
+        logger.info(f'{os.getpid()}-{threading.currentThread().ident}: save [{rec.count}]')
 
-    timer = TimerCycle(6.0, _save_images, args=(0,))
+    timer = TimerCycle(2.0, _save_images, args=(0,))
     timer.start()
     # test_ele_event(_save_images)
     # test_freqled_open(1000, 90)
@@ -102,7 +104,7 @@ if __name__ == "__main__":
                 cv2.imwrite('./out/%s/%d.png' % (name, img), frame)
                 rec.count += 1
         elif key == ord('q'):
-            logger.info(f'{os.getpid()}-{threading.currentThread().ident}: quit')
+            logger.info(f'{os.getpid()}-{threading.current_thread().ident}: quit')
             break
 
     for cap in vcaps.values():
@@ -110,3 +112,7 @@ if __name__ == "__main__":
     cv2.destroyAllWindows()
     timer.cancel()
     # test_freqled_close()
+
+# multical calibrate --name calibration --output_path . --image_path . --boards aprilgrid_6x6.yaml
+# --fix_aspect --allow_skew --distortion_model standard --motion_model rolling --num_threads 6 --seed 666
+# --iter 100 --loss linear --outlier_quantile 0.65 --outlier_threshold 5.0

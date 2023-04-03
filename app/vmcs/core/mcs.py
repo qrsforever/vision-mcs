@@ -102,14 +102,19 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt  # noqa
 
     curdir = osp.abspath(osp.dirname(__file__))
-    assets = f'{curdir}/../../../asset'
+    asset_dir = f'{curdir}/../../../asset'
+    test_image = '001.png'
+    # test_image = '1679644864764592896.png'
+    test_dir = f'{curdir}/../../../test'
+    images_root = f'{asset_dir}/camera'
+    # images_root = f'{test_dir}/camera/out'
 
-    # mcs = MultiCameraSystem()
-    mcs = MultiCameraSystem(
-            matcher_type='raft',
-            matcher_args={'ckpt_path': f'{assets}/models/raftstereo-eth3d.pth'})
+    mcs = MultiCameraSystem()
+    # mcs = MultiCameraSystem(
+    #         matcher_type='raft',
+    #         matcher_args={'ckpt_path': f'{asset_dir}/models/raftstereo-eth3d.pth'})
     camera_pairs = [('cam1', 'cam2'), ('cam2', 'cam3'), ('cam4', 'cam2')]
-    mcs.load_and_init(f'{assets}/camera/calibration_result.yaml', camera_pairs, 'cam2')
+    mcs.load_and_init(f'{images_root}/calibration_result.yaml', camera_pairs, 'cam2')
 
-    images = {cam:f'{assets}/camera/{cam}/001.png'.format(cam=cam) for cam in mcs.cameras.keys()}
+    images = {cam: '%s/%s/%s' % (images_root, cam, test_image) for cam in mcs.cameras.keys()}
     mcs.reconstruct_points_3d(images, draw=True)

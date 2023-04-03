@@ -26,6 +26,8 @@
 
 1. multical calibrate --name cam1 --output_path . --image_path . --cameras cam1   --boards aprilgrid_6x6.yaml --fix_aspect --distortion_model standard --iter 5
 
+2. multical calibrate --name calibration --output_path . --image_path . --iter 80 --boards aprilgrid_6x6.yaml   --master cam4
+
 # References
 
 1. https://medium.com/vacatronics/3-ways-to-calibrate-your-camera-using-opencv-and-python-395528a51615
