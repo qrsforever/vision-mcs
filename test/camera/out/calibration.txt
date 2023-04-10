@@ -1035,3 +1035,1067 @@ INFO - Function evaluations 3, initial cost 6.4444e+04, final cost 6.4227e+04, f
 INFO - Adjust_outliers end: reprojection RMS=2.129 (2.429), n=28348 (28524), quantiles=[ 0.0028  0.4836  0.9672  2.103  29.5547]
 INFO - Exporting calibration to ./calibration.json
 INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 122 matching images
+INFO - Loading images..
+INFO - Loaded 488 images
+INFO - {'cam1': (1920, 1080), 'cam2': (1920, 1080), 'cam3': (1920, 1080), 'cam4': (1920, 1080)}
+INFO - Config changed, not using loaded detections in ./calibration.detections.pkl
+INFO - Detecting boards..
+INFO - Writing detection cache to ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 57272, cameras: {'cam1': 13700, 'cam2': 14676, 'cam3': 14316, 'cam4': 14580}, Boards: {'aprilgrid_6x6': 57272}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.99
+INFO - Camera {'dist': array([[-0.4229, -0.1256, -0.0032,  0.0001]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2603.9098,    0.    ,  977.5531],
+              [   0.    , 2605.0328,  569.6608],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=0.80
+INFO - Camera {'dist': array([[-0.4422, -0.0839, -0.0041, -0.0011]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2619.5826,    0.    ,  941.8833],
+              [   0.    , 2620.026 ,  591.5533],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=2.37
+INFO - Camera {'dist': array([[-0.4337, -0.0953, -0.0042, -0.0011]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2595.2106,    0.    ,  911.5755],
+              [   0.    , 2596.9945,  459.1143],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=1.62
+INFO - Camera {'dist': array([[-0.434 ,  0.0069, -0.0018,  0.0029]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2599.3571,    0.    ,  920.9696],
+              [   0.    , 2601.1879,  617.4262],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 480, cameras: {'cam1': 121, 'cam2': 122, 'cam3': 119, 'cam4': 118}, Boards: {'aprilgrid_6x6': 480}
+INFO - Overlaps by camera:
+INFO - [[    0. 13516. 12156. 12112.]
+        [13516.     0. 12824. 12908.]
+        [12156. 12824.     0. 14028.]
+        [12112. 12908. 14028.     0.]]
+INFO - Selected master 1 and pairs [(1, 0), (1, 3), (1, 2)]
+INFO - Estimate transform axis=0, pair (1, 0), inliers 113/121
+INFO - RMS (frobius): 0.0128 (0.0158) (deg): 0.4975 (0.6158) (trans): 0.0095 (0.0111)
+INFO - [[ 0.9897  0.1363  0.0436  0.0446]
+        [-0.138   0.9897  0.0381 -0.0551]
+        [-0.038  -0.0437  0.9983 -0.0052]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (1, 3), inliers 108/118
+INFO - RMS (frobius): 0.0194 (0.0264) (deg): 0.7534 (1.0290) (trans): 0.0152 (0.0206)
+INFO - [[ 0.0022 -0.998   0.0625 -0.0598]
+        [ 0.9999  0.0028  0.01   -0.1142]
+        [-0.0102  0.0625  0.998  -0.0074]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (1, 2), inliers 105/119
+INFO - RMS (frobius): 0.0195 (0.0312) (deg): 0.7551 (1.2387) (trans): 0.0159 (0.0238)
+INFO - [[-0.0024 -0.9989  0.0466 -0.0126]
+        [ 0.9996 -0.0011  0.0281 -0.0468]
+        [-0.028   0.0466  0.9985 -0.0093]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=70956181806058.344, n=57272, quantiles=[7.5403e-03 1.3637e+00 2.4862e+00 5.0942e+00 1.6792e+16]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=70956181806058.344, n=57272, quantiles=[7.5403e-03 1.3637e+00 2.4862e+00 5.0942e+00 1.6792e+16]
+INFO - Rejecting 479 outliers with error > 25.47 pixels, keeping 56793 / 57272 inliers, (99.16%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         1.0415e+06                                    2.24e+07
+INFO - 1              2         4.2684e+05      6.15e+05       1.18e+02       1.60e+07
+INFO - 2              3         4.1930e+05      7.54e+03       7.29e+01       3.28e+06
+INFO - 3              5         4.1838e+05      9.21e+02       3.52e+00       6.77e+05
+INFO - 4              6         4.1818e+05      1.98e+02       5.55e-01       1.54e+05
+INFO - 5              8         4.1805e+05      1.28e+02       1.85e-01       1.37e+05
+INFO - 6              9         4.1803e+05      2.69e+01       8.59e-01       4.83e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 9, initial cost 1.0415e+06, final cost 4.1803e+05, first-order optimality 4.83e+04.
+INFO - Adjust_outliers 1: reprojection RMS=3.837 (7008667882493165.000), n=56793 (57272), quantiles=[4.5040e-03 7.8480e-01 1.6414e+00 3.6107e+00 1.6753e+18]
+INFO - Rejecting 507 outliers with error > 18.05 pixels, keeping 56765 / 57272 inliers, (99.11%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         3.9977e+05                                    2.49e+06
+INFO - 1              2         3.9680e+05      2.97e+03       8.42e+00       7.94e+05
+INFO - 2              3         3.9660e+05      1.99e+02       2.65e+00       1.08e+05
+INFO - 3              5         3.9657e+05      3.63e+01       3.03e-01       4.19e+05
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 5, initial cost 3.9977e+05, final cost 3.9657e+05, first-order optimality 4.19e+05.
+INFO - Adjust_outliers 2: reprojection RMS=3.738 (44374287800568094720.000), n=56765 (57272), quantiles=[4.4028e-03 7.8959e-01 1.6427e+00 3.6079e+00 1.0619e+22]
+INFO - Rejecting 523 outliers with error > 18.04 pixels, keeping 56749 / 57272 inliers, (99.09%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         3.9362e+05                                    5.03e+05
+INFO - 1              2         3.9351e+05      1.10e+02       1.47e+00       5.62e+03
+INFO - 2              3         3.9351e+05      2.35e+00       4.42e-01       1.09e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 3, initial cost 3.9362e+05, final cost 3.9351e+05, first-order optimality 1.09e+04.
+INFO - Adjust_outliers end: reprojection RMS=3.724 (291828568191324355821568.000), n=56749 (57272), quantiles=[3.8180e-03 7.9017e-01 1.6420e+00 3.6049e+00 6.9839e+25]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 103 matching images
+INFO - Loading images..
+INFO - Loaded 412 images
+INFO - {'cam1': (1920, 1080), 'cam2': (1920, 1080), 'cam3': (1920, 1080), 'cam4': (1920, 1080)}
+INFO - Config changed, not using loaded detections in ./calibration.detections.pkl
+INFO - Detecting boards..
+INFO - Writing detection cache to ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 49816, cameras: {'cam1': 11652, 'cam2': 12404, 'cam3': 12812, 'cam4': 12948}, Boards: {'aprilgrid_6x6': 49816}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.37
+INFO - Camera {'dist': array([[-0.4595,  0.1834, -0.0044,  0.0003]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2602.7912,    0.    ,  971.8987],
+              [   0.    , 2603.5139,  579.089 ],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=0.32
+INFO - Camera {'dist': array([[-0.4692,  0.1951, -0.004 , -0.0007]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2604.7131,    0.    ,  936.8804],
+              [   0.    , 2605.4678,  584.9678],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=1.50
+INFO - Camera {'dist': array([[-0.4161, -0.2234, -0.0055, -0.    ]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2632.2982,    0.    ,  891.2237],
+              [   0.    , 2635.1918,  474.567 ],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=0.84
+INFO - Camera {'dist': array([[-0.4332, -0.1442, -0.0014,  0.003 ]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2609.7371,    0.    ,  932.3891],
+              [   0.    , 2610.5121,  616.5768],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 411, cameras: {'cam1': 102, 'cam2': 103, 'cam3': 103, 'cam4': 103}, Boards: {'aprilgrid_6x6': 411}
+INFO - Overlaps by camera:
+INFO - [[    0. 11512. 10760. 10704.]
+        [11512.     0. 11332. 11316.]
+        [10760. 11332.     0. 12620.]
+        [10704. 11316. 12620.     0.]]
+INFO - Selected master 2 and pairs [(2, 3), (2, 1), (2, 0)]
+INFO - Estimate transform axis=0, pair (2, 3), inliers 95/103
+INFO - RMS (frobius): 0.0146 (0.0216) (deg): 0.5683 (0.8601) (trans): 0.0114 (0.0153)
+INFO - [[ 1.      0.0047  0.0049 -0.0482]
+        [-0.0047  0.9999 -0.0142 -0.0642]
+        [-0.0049  0.0141  0.9999 -0.0117]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 1), inliers 89/103
+INFO - RMS (frobius): 0.0183 (0.0346) (deg): 0.6981 (1.3818) (trans): 0.0151 (0.0259)
+INFO - [[-0.0037  0.9997 -0.0259  0.0536]
+        [-0.9985 -0.0022  0.0545 -0.0107]
+        [ 0.0544  0.026   0.9982 -0.0157]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 0), inliers 89/102
+INFO - RMS (frobius): 0.0241 (0.0395) (deg): 0.9274 (1.5699) (trans): 0.0197 (0.0305)
+INFO - [[-0.1382  0.99    0.0291  0.0912]
+        [-0.986  -0.1403  0.0899 -0.0729]
+        [ 0.0931 -0.0163  0.9955 -0.0167]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=249509647506115166208.000, n=49816, quantiles=[5.2302e-03 1.3146e+00 2.4002e+00 4.6954e+00 5.5689e+22]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=249509647506115166208.000, n=49816, quantiles=[5.2302e-03 1.3146e+00 2.4002e+00 4.6954e+00 5.5689e+22]
+INFO - Rejecting 404 outliers with error > 23.48 pixels, keeping 49412 / 49816 inliers, (99.19%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         7.5987e+05                                    2.29e+07
+INFO - 1              2         2.7435e+05      4.86e+05       9.27e+01       7.56e+06
+INFO - 2              3         2.6921e+05      5.15e+03       8.88e+01       3.50e+06
+INFO - 3              4         2.6872e+05      4.83e+02       2.74e+00       1.90e+04
+INFO - 4              5         2.6866e+05      5.77e+01       3.64e+00       1.26e+04
+INFO - 5              6         2.6864e+05      2.50e+01       1.26e+00       1.33e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 6, initial cost 7.5987e+05, final cost 2.6864e+05, first-order optimality 1.33e+04.
+INFO - Adjust_outliers 1: reprojection RMS=3.297 (48894652589166168.000), n=49412 (49816), quantiles=[4.2254e-03 7.1951e-01 1.4754e+00 3.1547e+00 1.0913e+19]
+INFO - Rejecting 273 outliers with error > 15.77 pixels, keeping 49543 / 49816 inliers, (99.45%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         2.7432e+05                                    1.38e+06
+INFO - 1              2         2.7252e+05      1.80e+03       1.29e+01       1.56e+05
+INFO - 2              3         2.7248e+05      3.94e+01       2.08e+00       3.01e+04
+INFO - 3              4         2.7247e+05      8.76e+00       5.52e-01       2.08e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 4, initial cost 2.7432e+05, final cost 2.7247e+05, first-order optimality 2.08e+04.
+INFO - Adjust_outliers 2: reprojection RMS=3.317 (12539730423189440.000), n=49543 (49816), quantiles=[5.9341e-03 7.1770e-01 1.4771e+00 3.1445e+00 2.7988e+18]
+INFO - Rejecting 291 outliers with error > 15.72 pixels, keeping 49525 / 49816 inliers, (99.42%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         2.6988e+05                                    7.17e+05
+INFO - 1              2         2.6974e+05      1.42e+02       7.20e-01       1.17e+04
+INFO - 2              3         2.6974e+05      1.48e+00       1.03e+00       7.14e+03
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 3, initial cost 2.6988e+05, final cost 2.6974e+05, first-order optimality 7.14e+03.
+INFO - Adjust_outliers end: reprojection RMS=3.300 (4678482846650517.000), n=49525 (49816), quantiles=[7.8357e-03 7.1657e-01 1.4741e+00 3.1435e+00 1.0441e+18]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 50 matching images
+INFO - Loading images..
+INFO - Loaded 200 images
+INFO - {'cam1': (1920, 1080), 'cam2': (1920, 1080), 'cam3': (1920, 1080), 'cam4': (1920, 1080)}
+INFO - Config changed, not using loaded detections in ./calibration.detections.pkl
+INFO - Detecting boards..
+INFO - Writing detection cache to ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 21816, cameras: {'cam1': 4824, 'cam2': 5396, 'cam3': 5724, 'cam4': 5872}, Boards: {'aprilgrid_6x6': 21816}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.40
+INFO - Camera {'dist': array([[-0.5039,  0.2218, -0.0029,  0.0067]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2663.0844,    0.    ,  973.797 ],
+              [   0.    , 2669.2028,  557.7038],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=1.35
+INFO - Camera {'dist': array([[-0.3465, -1.4995, -0.0014,  0.0028]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2659.9873,    0.    ,  972.1398],
+              [   0.    , 2663.8018,  555.2313],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=0.47
+INFO - Camera {'dist': array([[-0.4927,  0.2536, -0.003 ,  0.0006]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2667.2743,    0.    ,  897.3368],
+              [   0.    , 2670.1235,  439.6878],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=0.41
+INFO - Camera {'dist': array([[-0.5102,  0.6082,  0.0012,  0.0022]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2634.3084,    0.    ,  941.3367],
+              [   0.    , 2636.3487,  605.413 ],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 200, cameras: {'cam1': 50, 'cam2': 50, 'cam3': 50, 'cam4': 50}, Boards: {'aprilgrid_6x6': 200}
+INFO - Overlaps by camera:
+INFO - [[   0. 4588. 4704. 4592.]
+        [4588.    0. 4952. 5060.]
+        [4704. 4952.    0. 5508.]
+        [4592. 5060. 5508.    0.]]
+INFO - Selected master 2 and pairs [(2, 3), (2, 1), (2, 0)]
+INFO - Estimate transform axis=0, pair (2, 3), inliers 46/50
+INFO - RMS (frobius): 0.0145 (0.0181) (deg): 0.5824 (0.7267) (trans): 0.0083 (0.0099)
+INFO - [[ 1.      0.0041  0.0041 -0.0516]
+        [-0.004   0.9996 -0.0278 -0.0612]
+        [-0.0042  0.0278  0.9996 -0.0137]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 1), inliers 47/50
+INFO - RMS (frobius): 0.0614 (0.0802) (deg): 2.4814 (3.2415) (trans): 0.0378 (0.0498)
+INFO - [[-0.0038  0.9983 -0.0578  0.0602]
+        [-0.9979 -0.      0.0649 -0.0104]
+        [ 0.0648  0.0579  0.9962  0.0025]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 0), inliers 45/50
+INFO - RMS (frobius): 0.0193 (0.0292) (deg): 0.7714 (1.1710) (trans): 0.0109 (0.0142)
+INFO - [[-0.1387  0.9903  0.003   0.1045]
+        [-0.985  -0.1382  0.1036 -0.0775]
+        [ 0.103   0.0114  0.9946  0.0004]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.6761  4.6374 34.8669]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.6761  4.6374 34.8669]
+INFO - Rejecting 56 outliers with error > 23.19 pixels, keeping 21760 / 21816 inliers, (99.74%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         2.4858e+05                                    1.90e+07
+INFO - 1              2         1.1546e+05      1.33e+05       7.68e+01       4.39e+06
+INFO - 2              3         1.1386e+05      1.61e+03       8.27e+01       1.35e+06
+INFO - 3              4         1.1365e+05      2.04e+02       3.63e+01       5.18e+05
+INFO - 4              5         1.1361e+05      4.69e+01       2.21e+01       1.50e+05
+INFO - 5              6         1.1359e+05      1.62e+01       1.28e+01       5.91e+04
+INFO - 6              7         1.1358e+05      5.94e+00       3.29e+00       1.47e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 7, initial cost 2.4858e+05, final cost 1.1358e+05, first-order optimality 1.47e+04.
+INFO - Adjust_outliers 1: reprojection RMS=3.231 (3.355), n=21760 (21816), quantiles=[ 0.0078  1.0217  1.8409  3.159  24.9665]
+INFO - Rejecting 79 outliers with error > 15.79 pixels, keeping 21737 / 21816 inliers, (99.64%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         1.0871e+05                                    6.93e+05
+INFO - 1              2         1.0849e+05      2.23e+02       2.30e+01       2.37e+05
+INFO - 2              3         1.0848e+05      4.71e+00       4.20e+00       5.47e+03
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 3, initial cost 1.0871e+05, final cost 1.0848e+05, first-order optimality 5.47e+03.
+INFO - Adjust_outliers 2: reprojection RMS=3.159 (3.354), n=21737 (21816), quantiles=[ 0.0038  1.0186  1.8416  3.1573 25.0804]
+INFO - Rejecting 84 outliers with error > 15.79 pixels, keeping 21732 / 21816 inliers, (99.61%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         1.0781e+05                                    1.81e+05
+INFO - 1              2         1.0779e+05      2.14e+01       3.67e+00       5.00e+03
+INFO - 2              3         1.0778e+05      3.06e+00       1.97e+01       6.53e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 3, initial cost 1.0781e+05, final cost 1.0778e+05, first-order optimality 6.53e+04.
+INFO - Adjust_outliers end: reprojection RMS=3.150 (3.356), n=21732 (21816), quantiles=[ 0.0052  1.0194  1.8386  3.1572 25.3223]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 50 matching images
+INFO - Loading images..
+INFO - Loaded 200 images
+INFO - {'cam1': (1920, 1080), 'cam2': (1920, 1080), 'cam3': (1920, 1080), 'cam4': (1920, 1080)}
+INFO - Loaded detections from ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 21816, cameras: {'cam1': 4824, 'cam2': 5396, 'cam3': 5724, 'cam4': 5872}, Boards: {'aprilgrid_6x6': 21816}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.40
+INFO - Camera {'dist': array([[-0.5039,  0.2218, -0.0029,  0.0067]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2663.0888,    0.    ,  973.7965],
+              [   0.    , 2669.2072,  557.7045],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=1.35
+INFO - Camera {'dist': array([[-0.3465, -1.4995, -0.0014,  0.0028]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2659.9869,    0.    ,  972.1399],
+              [   0.    , 2663.8013,  555.2313],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=0.47
+INFO - Camera {'dist': array([[-0.4927,  0.2536, -0.003 ,  0.0006]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2667.2737,    0.    ,  897.3368],
+              [   0.    , 2670.1229,  439.6878],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=0.41
+INFO - Camera {'dist': array([[-0.5102,  0.6082,  0.0012,  0.0022]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2634.3083,    0.    ,  941.3367],
+              [   0.    , 2636.3486,  605.413 ],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 200, cameras: {'cam1': 50, 'cam2': 50, 'cam3': 50, 'cam4': 50}, Boards: {'aprilgrid_6x6': 200}
+INFO - Overlaps by camera:
+INFO - [[   0. 4588. 4704. 4592.]
+        [4588.    0. 4952. 5060.]
+        [4704. 4952.    0. 5508.]
+        [4592. 5060. 5508.    0.]]
+INFO - Selected master 2 and pairs [(2, 3), (2, 1), (2, 0)]
+INFO - Estimate transform axis=0, pair (2, 3), inliers 46/50
+INFO - RMS (frobius): 0.0145 (0.0181) (deg): 0.5824 (0.7267) (trans): 0.0083 (0.0099)
+INFO - [[ 1.      0.0041  0.0041 -0.0516]
+        [-0.004   0.9996 -0.0278 -0.0612]
+        [-0.0042  0.0278  0.9996 -0.0137]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 1), inliers 47/50
+INFO - RMS (frobius): 0.0614 (0.0802) (deg): 2.4814 (3.2415) (trans): 0.0378 (0.0498)
+INFO - [[-0.0038  0.9983 -0.0578  0.0602]
+        [-0.9979 -0.      0.0649 -0.0104]
+        [ 0.0648  0.0579  0.9962  0.0025]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 0), inliers 45/50
+INFO - RMS (frobius): 0.0193 (0.0292) (deg): 0.7714 (1.1710) (trans): 0.0109 (0.0142)
+INFO - [[-0.1387  0.9903  0.003   0.1045]
+        [-0.985  -0.1382  0.1036 -0.0775]
+        [ 0.103   0.0114  0.9946  0.0004]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.6762  4.6374 34.8669]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.6762  4.6374 34.8669]
+INFO - Rejecting 56 outliers with error > 23.19 pixels, keeping 21760 / 21816 inliers, (99.74%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         2.4858e+05                                    1.90e+07
+INFO - 1              2         1.1547e+05      1.33e+05       7.81e+01       4.40e+06
+INFO - 2              3         1.1386e+05      1.62e+03       8.40e+01       1.38e+06
+INFO - 3              4         1.1365e+05      2.06e+02       3.62e+01       5.15e+05
+INFO - 4              5         1.1361e+05      4.62e+01       2.17e+01       1.45e+05
+INFO - 5              6         1.1359e+05      1.58e+01       1.27e+01       6.04e+04
+INFO - 6              7         1.1358e+05      5.78e+00       3.11e+00       1.38e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 7, initial cost 2.4858e+05, final cost 1.1358e+05, first-order optimality 1.38e+04.
+INFO - Adjust_outliers 1: reprojection RMS=3.231 (3.355), n=21760 (21816), quantiles=[ 0.0077  1.0219  1.8409  3.1589 24.9665]
+INFO - Rejecting 79 outliers with error > 15.79 pixels, keeping 21737 / 21816 inliers, (99.64%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         1.0871e+05                                    6.94e+05
+INFO - 1              2         1.0849e+05      2.23e+02       2.26e+01       2.29e+05
+INFO - 2              3         1.0848e+05      4.62e+00       4.10e+00       5.32e+03
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 3, initial cost 1.0871e+05, final cost 1.0848e+05, first-order optimality 5.32e+03.
+INFO - Adjust_outliers 2: reprojection RMS=3.159 (3.354), n=21737 (21816), quantiles=[ 0.0038  1.0186  1.8417  3.1571 25.0775]
+INFO - Rejecting 84 outliers with error > 15.79 pixels, keeping 21732 / 21816 inliers, (99.61%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         1.0781e+05                                    1.81e+05
+INFO - 1              2         1.0779e+05      2.16e+01       4.03e+00       5.71e+03
+INFO - 2              3         1.0778e+05      2.99e+00       1.87e+01       6.31e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 3, initial cost 1.0781e+05, final cost 1.0778e+05, first-order optimality 6.31e+04.
+INFO - Adjust_outliers end: reprojection RMS=3.150 (3.356), n=21732 (21816), quantiles=[ 0.0049  1.019   1.8385  3.1572 25.3172]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 50 matching images
+INFO - Loading images..
+INFO - Loaded 200 images
+INFO - {'cam1': (1920, 1080), 'cam2': (1920, 1080), 'cam3': (1920, 1080), 'cam4': (1920, 1080)}
+INFO - Loaded detections from ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 21816, cameras: {'cam1': 4824, 'cam2': 5396, 'cam3': 5724, 'cam4': 5872}, Boards: {'aprilgrid_6x6': 21816}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.40
+INFO - Camera {'dist': array([[-0.5039,  0.2217, -0.0029,  0.0067]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2663.0841,    0.    ,  973.797 ],
+              [   0.    , 2669.2025,  557.7037],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=1.35
+INFO - Camera {'dist': array([[-0.3465, -1.4995, -0.0014,  0.0028]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2659.9878,    0.    ,  972.1397],
+              [   0.    , 2663.8023,  555.2315],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=0.47
+INFO - Camera {'dist': array([[-0.4927,  0.2536, -0.003 ,  0.0006]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2667.2744,    0.    ,  897.3366],
+              [   0.    , 2670.1236,  439.6876],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=0.41
+INFO - Camera {'dist': array([[-0.5102,  0.6082,  0.0012,  0.0022]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2634.3083,    0.    ,  941.3367],
+              [   0.    , 2636.3486,  605.413 ],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 200, cameras: {'cam1': 50, 'cam2': 50, 'cam3': 50, 'cam4': 50}, Boards: {'aprilgrid_6x6': 200}
+INFO - Overlaps by camera:
+INFO - [[   0. 4588. 4704. 4592.]
+        [4588.    0. 4952. 5060.]
+        [4704. 4952.    0. 5508.]
+        [4592. 5060. 5508.    0.]]
+INFO - Selected master 2 and pairs [(2, 3), (2, 1), (2, 0)]
+INFO - Estimate transform axis=0, pair (2, 3), inliers 46/50
+INFO - RMS (frobius): 0.0145 (0.0181) (deg): 0.5824 (0.7267) (trans): 0.0083 (0.0099)
+INFO - [[ 1.      0.0041  0.0041 -0.0516]
+        [-0.004   0.9996 -0.0278 -0.0612]
+        [-0.0042  0.0278  0.9996 -0.0137]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 1), inliers 47/50
+INFO - RMS (frobius): 0.0614 (0.0802) (deg): 2.4814 (3.2415) (trans): 0.0378 (0.0498)
+INFO - [[-0.0038  0.9983 -0.0578  0.0602]
+        [-0.9979 -0.      0.0649 -0.0104]
+        [ 0.0648  0.0579  0.9962  0.0025]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 0), inliers 45/50
+INFO - RMS (frobius): 0.0193 (0.0292) (deg): 0.7714 (1.1710) (trans): 0.0109 (0.0142)
+INFO - [[-0.1387  0.9903  0.003   0.1045]
+        [-0.985  -0.1382  0.1036 -0.0775]
+        [ 0.103   0.0114  0.9946  0.0004]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.6761  4.6374 34.8669]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.6761  4.6374 34.8669]
+INFO - Rejecting 56 outliers with error > 23.19 pixels, keeping 21760 / 21816 inliers, (99.74%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         2.4858e+05                                    1.90e+07
+INFO - 1              2         8.6074e+04      1.63e+05       1.38e+02       1.60e+07
+INFO - 2              3         8.2795e+04      3.28e+03       9.27e+01       3.25e+06
+INFO - 3              5         7.5869e+04      6.93e+03       5.33e-01       5.62e+06
+INFO - 4              6         7.4549e+04      1.32e+03       5.32e-01       4.67e+05
+INFO - 5              8         7.3601e+04      9.48e+02       3.99e-01       2.25e+06
+INFO - 6              9         7.3138e+04      4.63e+02       1.39e+00       5.60e+05
+INFO - 7             11         7.2975e+04      1.63e+02       3.37e+00       3.03e+05
+INFO - 8             12         7.2821e+04      1.54e+02       8.86e+00       3.15e+05
+INFO - 9             13         7.2727e+04      9.39e+01       2.22e+01       2.57e+05
+INFO - 10             14         7.2650e+04      7.73e+01       4.51e+01       2.42e+05
+INFO - 11             15         7.2534e+04      1.16e+02       8.97e+01       1.36e+05
+INFO - 12             16         7.2355e+04      1.79e+02       1.79e+02       5.35e+05
+INFO - 13             17         7.2200e+04      1.55e+02       1.96e+02       1.13e+06
+INFO - 14             18         7.2093e+04      1.06e+02       3.32e+01       5.77e+04
+INFO - 15             19         7.2073e+04      2.01e+01       1.09e+02       4.30e+05
+INFO - 16             21         7.2055e+04      1.82e+01       4.82e-01       1.40e+05
+INFO - 17             22         7.2054e+04      1.57e+00       5.62e-01       7.19e+03
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 22, initial cost 2.4858e+05, final cost 7.2054e+04, first-order optimality 7.19e+03.
+INFO - Adjust_outliers 1: reprojection RMS=2.573 (2.703), n=21760 (21816), quantiles=[ 0.0099  0.8131  1.4458  2.4016 26.1082]
+INFO - Rejecting 116 outliers with error > 12.01 pixels, keeping 21700 / 21816 inliers, (99.47%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         6.4505e+04                                    6.68e+05
+INFO - 1              2         6.3964e+04      5.41e+02       4.54e+01       7.15e+05
+INFO - 2              3         6.3872e+04      9.21e+01       7.53e+00       1.15e+05
+INFO - 3              5         6.3828e+04      4.40e+01       1.33e+01       5.51e+04
+INFO - 4              6         6.3824e+04      3.24e+00       1.15e+01       3.65e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 6, initial cost 6.4505e+04, final cost 6.3824e+04, first-order optimality 3.65e+04.
+INFO - Adjust_outliers 2: reprojection RMS=2.425 (2.720), n=21700 (21816), quantiles=[ 0.0048  0.8011  1.4375  2.3948 28.0453]
+INFO - Rejecting 129 outliers with error > 11.97 pixels, keeping 21687 / 21816 inliers, (99.41%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         6.2692e+04                                    3.14e+05
+INFO - 1              2         6.2552e+04      1.41e+02       1.23e+01       2.55e+05
+INFO - 2              3         6.2529e+04      2.27e+01       1.62e+01       2.80e+04
+INFO - 3              5         6.2523e+04      5.93e+00       6.08e-01       5.75e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 5, initial cost 6.2692e+04, final cost 6.2523e+04, first-order optimality 5.75e+04.
+INFO - Adjust_outliers end: reprojection RMS=2.401 (2.742), n=21687 (21816), quantiles=[ 0.0037  0.8017  1.4376  2.3916 29.2471]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 50 matching images
+INFO - Loading images..
+INFO - Loaded 200 images
+INFO - {'cam1': (1920, 1080), 'cam2': (1920, 1080), 'cam3': (1920, 1080), 'cam4': (1920, 1080)}
+INFO - Loaded detections from ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 21816, cameras: {'cam1': 4824, 'cam2': 5396, 'cam3': 5724, 'cam4': 5872}, Boards: {'aprilgrid_6x6': 21816}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.40
+INFO - Camera {'dist': array([[-0.5039,  0.2217, -0.0029,  0.0067]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2663.0724,    0.    ,  973.7984],
+              [   0.    , 2669.1907,  557.7031],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=1.35
+INFO - Camera {'dist': array([[-0.3465, -1.4995, -0.0014,  0.0028]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2659.9876,    0.    ,  972.1398],
+              [   0.    , 2663.8021,  555.2314],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=0.47
+INFO - Camera {'dist': array([[-0.4927,  0.2536, -0.003 ,  0.0006]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2667.2744,    0.    ,  897.3367],
+              [   0.    , 2670.1236,  439.6877],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=0.41
+INFO - Camera {'dist': array([[-0.5102,  0.6082,  0.0012,  0.0022]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2634.3082,    0.    ,  941.3367],
+              [   0.    , 2636.3485,  605.413 ],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 200, cameras: {'cam1': 50, 'cam2': 50, 'cam3': 50, 'cam4': 50}, Boards: {'aprilgrid_6x6': 200}
+INFO - Overlaps by camera:
+INFO - [[   0. 4588. 4704. 4592.]
+        [4588.    0. 4952. 5060.]
+        [4704. 4952.    0. 5508.]
+        [4592. 5060. 5508.    0.]]
+INFO - Selected master 2 and pairs [(2, 3), (2, 1), (2, 0)]
+INFO - Estimate transform axis=0, pair (2, 3), inliers 46/50
+INFO - RMS (frobius): 0.0145 (0.0181) (deg): 0.5824 (0.7267) (trans): 0.0083 (0.0099)
+INFO - [[ 1.      0.0041  0.0041 -0.0516]
+        [-0.004   0.9996 -0.0278 -0.0612]
+        [-0.0042  0.0278  0.9996 -0.0137]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 1), inliers 47/50
+INFO - RMS (frobius): 0.0614 (0.0802) (deg): 2.4814 (3.2415) (trans): 0.0378 (0.0498)
+INFO - [[-0.0038  0.9983 -0.0578  0.0602]
+        [-0.9979 -0.      0.0649 -0.0104]
+        [ 0.0648  0.0579  0.9962  0.0025]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 0), inliers 45/50
+INFO - RMS (frobius): 0.0193 (0.0292) (deg): 0.7714 (1.1710) (trans): 0.0109 (0.0142)
+INFO - [[-0.1387  0.9903  0.003   0.1045]
+        [-0.985  -0.1382  0.1036 -0.0775]
+        [ 0.103   0.0114  0.9946  0.0004]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.676   4.6375 34.8668]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.676   4.6375 34.8668]
+INFO - Rejecting 56 outliers with error > 23.19 pixels, keeping 21760 / 21816 inliers, (99.74%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         2.4858e+05                                    1.90e+07
+INFO - 1              2         8.6075e+04      1.63e+05       1.38e+02       1.60e+07
+INFO - 2              3         8.2795e+04      3.28e+03       9.27e+01       3.25e+06
+INFO - 3              5         7.5869e+04      6.93e+03       5.33e-01       5.62e+06
+INFO - 4              6         7.4549e+04      1.32e+03       5.32e-01       4.67e+05
+INFO - 5              8         7.3601e+04      9.48e+02       3.99e-01       2.25e+06
+INFO - 6              9         7.3138e+04      4.63e+02       1.39e+00       5.60e+05
+INFO - 7             11         7.2975e+04      1.63e+02       3.37e+00       3.03e+05
+INFO - 8             12         7.2821e+04      1.54e+02       8.86e+00       3.15e+05
+INFO - 9             13         7.2727e+04      9.39e+01       2.22e+01       2.57e+05
+INFO - 10             14         7.2650e+04      7.73e+01       4.51e+01       2.42e+05
+INFO - 11             15         7.2534e+04      1.16e+02       8.97e+01       1.36e+05
+INFO - 12             16         7.2355e+04      1.79e+02       1.79e+02       5.34e+05
+INFO - 13             17         7.2200e+04      1.54e+02       1.97e+02       1.15e+06
+INFO - 14             18         7.2094e+04      1.07e+02       3.22e+01       5.68e+04
+INFO - 15             19         7.2075e+04      1.91e+01       1.11e+02       4.44e+05
+INFO - 16             21         7.2055e+04      1.94e+01       4.75e-01       1.44e+05
+INFO - 17             22         7.2054e+04      1.43e+00       5.60e-01       7.25e+03
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 22, initial cost 2.4858e+05, final cost 7.2054e+04, first-order optimality 7.25e+03.
+INFO - Adjust_outliers 1: reprojection RMS=2.573 (2.703), n=21760 (21816), quantiles=[ 0.0098  0.8131  1.4459  2.4018 26.1078]
+INFO - Rejecting 116 outliers with error > 12.01 pixels, keeping 21700 / 21816 inliers, (99.47%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         6.4505e+04                                    6.68e+05
+INFO - 1              2         6.3960e+04      5.45e+02       4.42e+01       7.03e+05
+INFO - 2              3         6.3864e+04      9.53e+01       8.25e+00       1.03e+05
+INFO - 3              5         6.3827e+04      3.72e+01       1.30e+01       5.87e+04
+INFO - 4              6         6.3824e+04      3.53e+00       1.12e+01       3.21e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 6, initial cost 6.4505e+04, final cost 6.3824e+04, first-order optimality 3.21e+04.
+INFO - Adjust_outliers 2: reprojection RMS=2.425 (2.720), n=21700 (21816), quantiles=[ 0.0047  0.8013  1.4371  2.3945 28.0274]
+INFO - Rejecting 129 outliers with error > 11.97 pixels, keeping 21687 / 21816 inliers, (99.41%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         6.2692e+04                                    3.12e+05
+INFO - 1              2         6.2552e+04      1.40e+02       1.28e+01       2.44e+05
+INFO - 2              3         6.2524e+04      2.79e+01       1.64e+01       3.11e+04
+INFO - 3              5         6.2522e+04      2.04e+00       1.04e+00       4.17e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 5, initial cost 6.2692e+04, final cost 6.2522e+04, first-order optimality 4.17e+04.
+INFO - Adjust_outliers end: reprojection RMS=2.401 (2.742), n=21687 (21816), quantiles=[ 0.0036  0.8018  1.4371  2.3928 29.2201]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 50 matching images
+INFO - Loading images..
+INFO - Loaded 200 images
+INFO - {'cam1': (1920, 1080), 'cam2': (1920, 1080), 'cam3': (1920, 1080), 'cam4': (1920, 1080)}
+INFO - Loaded detections from ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 21816, cameras: {'cam1': 4824, 'cam2': 5396, 'cam3': 5724, 'cam4': 5872}, Boards: {'aprilgrid_6x6': 21816}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.40
+INFO - Camera {'dist': array([[-0.5039,  0.2218, -0.0029,  0.0067]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2663.0881,    0.    ,  973.7967],
+              [   0.    , 2669.2065,  557.7038],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=1.35
+INFO - Camera {'dist': array([[-0.3465, -1.4995, -0.0014,  0.0028]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2659.988 ,    0.    ,  972.1398],
+              [   0.    , 2663.8024,  555.2314],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=0.47
+INFO - Camera {'dist': array([[-0.4927,  0.2536, -0.003 ,  0.0006]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2667.2739,    0.    ,  897.3368],
+              [   0.    , 2670.1231,  439.6878],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=0.41
+INFO - Camera {'dist': array([[-0.5102,  0.6082,  0.0012,  0.0022]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2634.3084,    0.    ,  941.3367],
+              [   0.    , 2636.3487,  605.413 ],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 200, cameras: {'cam1': 50, 'cam2': 50, 'cam3': 50, 'cam4': 50}, Boards: {'aprilgrid_6x6': 200}
+INFO - Overlaps by camera:
+INFO - [[   0. 4588. 4704. 4592.]
+        [4588.    0. 4952. 5060.]
+        [4704. 4952.    0. 5508.]
+        [4592. 5060. 5508.    0.]]
+INFO - Selected master 2 and pairs [(2, 3), (2, 1), (2, 0)]
+INFO - Estimate transform axis=0, pair (2, 3), inliers 46/50
+INFO - RMS (frobius): 0.0145 (0.0181) (deg): 0.5824 (0.7267) (trans): 0.0083 (0.0099)
+INFO - [[ 1.      0.0041  0.0041 -0.0516]
+        [-0.004   0.9996 -0.0278 -0.0612]
+        [-0.0042  0.0278  0.9996 -0.0137]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 1), inliers 47/50
+INFO - RMS (frobius): 0.0614 (0.0802) (deg): 2.4814 (3.2415) (trans): 0.0378 (0.0498)
+INFO - [[-0.0038  0.9983 -0.0578  0.0602]
+        [-0.9979 -0.      0.0649 -0.0104]
+        [ 0.0648  0.0579  0.9962  0.0025]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 0), inliers 45/50
+INFO - RMS (frobius): 0.0193 (0.0292) (deg): 0.7714 (1.1710) (trans): 0.0109 (0.0142)
+INFO - [[-0.1387  0.9903  0.003   0.1045]
+        [-0.985  -0.1382  0.1036 -0.0775]
+        [ 0.103   0.0114  0.9946  0.0004]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.6762  4.6374 34.8669]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=4.961, n=21816, quantiles=[ 0.0121  1.5698  2.6762  4.6374 34.8669]
+INFO - Rejecting 56 outliers with error > 23.19 pixels, keeping 21760 / 21816 inliers, (99.74%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         2.4858e+05                                    1.90e+07
+INFO - 1              2         1.1546e+05      1.33e+05       7.62e+01       4.38e+06
+INFO - 2              3         1.1386e+05      1.60e+03       8.22e+01       1.34e+06
+INFO - 3              4         1.1365e+05      2.03e+02       3.62e+01       5.17e+05
+INFO - 4              5         1.1361e+05      4.71e+01       2.23e+01       1.52e+05
+INFO - 5              6         1.1359e+05      1.65e+01       1.31e+01       5.88e+04
+INFO - 6              7         1.1358e+05      6.09e+00       3.60e+00       1.51e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 7, initial cost 2.4858e+05, final cost 1.1358e+05, first-order optimality 1.51e+04.
+INFO - Adjust_outliers 1: reprojection RMS=3.231 (3.355), n=21760 (21816), quantiles=[ 0.0077  1.0218  1.8408  3.1591 24.9655]
+INFO - Rejecting 79 outliers with error > 15.80 pixels, keeping 21737 / 21816 inliers, (99.64%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         1.0871e+05                                    6.93e+05
+INFO - 1              2         1.0849e+05      2.23e+02       2.31e+01       2.40e+05
+INFO - 2              3         1.0848e+05      4.73e+00       4.14e+00       5.39e+03
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 3, initial cost 1.0871e+05, final cost 1.0848e+05, first-order optimality 5.39e+03.
+INFO - Adjust_outliers 2: reprojection RMS=3.159 (3.354), n=21737 (21816), quantiles=[ 0.0039  1.0186  1.8416  3.1572 25.081 ]
+INFO - Rejecting 84 outliers with error > 15.79 pixels, keeping 21732 / 21816 inliers, (99.61%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         1.0781e+05                                    1.81e+05
+INFO - 1              2         1.0779e+05      2.13e+01       3.57e+00       4.76e+03
+INFO - 2              3         1.0778e+05      3.12e+00       2.05e+01       6.69e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 3, initial cost 1.0781e+05, final cost 1.0778e+05, first-order optimality 6.69e+04.
+INFO - Adjust_outliers end: reprojection RMS=3.150 (3.356), n=21732 (21816), quantiles=[ 0.0054  1.0195  1.8385  3.1572 25.3244]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 50 matching images
+INFO - Loading images..
+INFO - Loaded 200 images
+INFO - {'cam1': (1920, 1080), 'cam2': (1920, 1080), 'cam3': (1920, 1080), 'cam4': (1920, 1080)}
+INFO - Loaded detections from ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 21816, cameras: {'cam1': 4824, 'cam2': 5396, 'cam3': 5724, 'cam4': 5872}, Boards: {'aprilgrid_6x6': 21816}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.40
+INFO - Camera {'dist': array([[-0.5039,  0.2217, -0.0029,  0.0067]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2663.0768,    0.    ,  973.7984],
+              [   0.    , 2669.1952,  557.7022],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=1.35
+INFO - Camera {'dist': array([[-0.3465, -1.4995, -0.0014,  0.0028]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2659.9877,    0.    ,  972.1398],
+              [   0.    , 2663.8022,  555.2314],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=0.47
+INFO - Camera {'dist': array([[-0.4927,  0.2536, -0.003 ,  0.0006]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2667.2749,    0.    ,  897.3366],
+              [   0.    , 2670.1241,  439.6876],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=0.41
+INFO - Camera {'dist': array([[-0.5102,  0.6082,  0.0012,  0.0022]]),
+        'image_size': (1920, 1080),
+        'intrinsic': array([[2634.3081,    0.    ,  941.3367],
+              [   0.    , 2636.3484,  605.413 ],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 200, cameras: {'cam1': 50, 'cam2': 50, 'cam3': 50, 'cam4': 50}, Boards: {'aprilgrid_6x6': 200}
+INFO - Overlaps by camera:
+INFO - [[   0. 4588. 4704. 4592.]
+        [4588.    0. 4952. 5060.]
+        [4704. 4952.    0. 5508.]
+        [4592. 5060. 5508.    0.]]
+INFO - Selected master 2 and pairs [(2, 3), (2, 1), (2, 0)]
+INFO - Estimate transform axis=0, pair (2, 3), inliers 46/50
+INFO - RMS (frobius): 0.0145 (0.0181) (deg): 0.5824 (0.7267) (trans): 0.0083 (0.0099)
+INFO - [[ 1.      0.0041  0.0041 -0.0516]
+        [-0.004   0.9996 -0.0278 -0.0612]
+        [-0.0042  0.0278  0.9996 -0.0137]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 1), inliers 47/50
+INFO - RMS (frobius): 0.0614 (0.0802) (deg): 2.4814 (3.2415) (trans): 0.0378 (0.0498)
+INFO - [[-0.0038  0.9983 -0.0578  0.0602]
+        [-0.9979 -0.      0.0649 -0.0104]
+        [ 0.0648  0.0579  0.9962  0.0025]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (2, 0), inliers 45/50
+INFO - RMS (frobius): 0.0193 (0.0292) (deg): 0.7714 (1.1710) (trans): 0.0109 (0.0142)
+INFO - [[-0.1387  0.9903  0.003   0.1045]
+        [-0.985  -0.1382  0.1036 -0.0775]
+        [ 0.103   0.0114  0.9946  0.0004]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=4.961, n=21816, quantiles=[ 0.0122  1.5698  2.6761  4.6375 34.8668]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=4.961, n=21816, quantiles=[ 0.0122  1.5698  2.6761  4.6375 34.8668]
+INFO - Rejecting 56 outliers with error > 23.19 pixels, keeping 21760 / 21816 inliers, (99.74%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         2.4858e+05                                    1.90e+07
+INFO - 1              2         8.6075e+04      1.63e+05       1.38e+02       1.60e+07
+INFO - 2              3         8.2795e+04      3.28e+03       9.23e+01       3.24e+06
+INFO - 3              5         7.5875e+04      6.92e+03       5.33e-01       5.62e+06
+INFO - 4              6         7.4546e+04      1.33e+03       5.25e-01       4.66e+05
+INFO - 5              8         7.3601e+04      9.44e+02       4.00e-01       2.25e+06
+INFO - 6              9         7.3135e+04      4.66e+02       1.39e+00       5.60e+05
+INFO - 7             11         7.2975e+04      1.60e+02       3.39e+00       3.01e+05
+INFO - 8             12         7.2822e+04      1.54e+02       8.81e+00       3.16e+05
+INFO - 9             13         7.2728e+04      9.39e+01       2.22e+01       2.56e+05
+INFO - 10             14         7.2651e+04      7.73e+01       4.50e+01       2.42e+05
+INFO - 11             15         7.2534e+04      1.16e+02       8.94e+01       1.36e+05
+INFO - 12             16         7.2356e+04      1.79e+02       1.78e+02       5.30e+05
+INFO - 13             17         7.2201e+04      1.55e+02       1.97e+02       1.15e+06
+INFO - 14             18         7.2094e+04      1.07e+02       3.30e+01       5.68e+04
+INFO - 15             19         7.2072e+04      2.15e+01       1.10e+02       4.34e+05
+INFO - 16             21         7.2055e+04      1.70e+01       5.13e-01       1.41e+05
+INFO - 17             22         7.2053e+04      1.92e+00       5.26e-01       6.78e+03
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 22, initial cost 2.4858e+05, final cost 7.2053e+04, first-order optimality 6.78e+03.
+INFO - Adjust_outliers 1: reprojection RMS=2.573 (2.703), n=21760 (21816), quantiles=[ 0.0099  0.8133  1.4458  2.4017 26.1085]
+INFO - Rejecting 116 outliers with error > 12.01 pixels, keeping 21700 / 21816 inliers, (99.47%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         6.4504e+04                                    6.68e+05
+INFO - 1              2         6.3969e+04      5.36e+02       4.57e+01       7.36e+05
+INFO - 2              3         6.3883e+04      8.51e+01       6.99e+00       1.33e+05
+INFO - 3              5         6.3829e+04      5.49e+01       1.35e+01       5.23e+04
+INFO - 4              6         6.3827e+04      1.56e+00       1.17e+01       3.64e+04
+INFO - 5              8         6.3822e+04      4.68e+00       2.21e-01       6.23e+04
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 8, initial cost 6.4504e+04, final cost 6.3822e+04, first-order optimality 6.23e+04.
+INFO - Adjust_outliers 2: reprojection RMS=2.425 (2.720), n=21700 (21816), quantiles=[ 0.005   0.802   1.4376  2.394  27.9789]
+INFO - Rejecting 129 outliers with error > 11.97 pixels, keeping 21687 / 21816 inliers, (99.41%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         6.2691e+04                                    2.87e+05
+INFO - 1              2         6.2560e+04      1.31e+02       1.53e+01       3.16e+05
+INFO - 2              3         6.2531e+04      2.89e+01       9.39e+00       4.82e+04
+INFO - 3              5         6.2523e+04      7.43e+00       2.20e+00       4.54e+04
+INFO - 4              6         6.2522e+04      1.72e+00       4.03e+00       3.36e+03
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 6, initial cost 6.2691e+04, final cost 6.2522e+04, first-order optimality 3.36e+03.
+INFO - Adjust_outliers end: reprojection RMS=2.401 (2.742), n=21687 (21816), quantiles=[ 0.0068  0.8016  1.4375  2.3915 29.206 ]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 22 matching images
+INFO - Loading images..
+INFO - Loaded 88 images
+INFO - {'cam1': (800, 600), 'cam2': (800, 600), 'cam3': (800, 600), 'cam4': (800, 600)}
+INFO - Config changed, not using loaded detections in ./calibration.detections.pkl
+INFO - Detecting boards..
+INFO - Writing detection cache to ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 10832, cameras: {'cam1': 2680, 'cam2': 2820, 'cam3': 2712, 'cam4': 2620}, Boards: {'aprilgrid_6x6': 10832}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.09
+INFO - Camera {'dist': array([[-0.4849,  0.3197, -0.0039,  0.0013]]),
+        'image_size': (800, 600),
+        'intrinsic': array([[1442.577 ,    0.    ,  400.9274],
+              [   0.    , 1442.577 ,  311.1363],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=0.10
+INFO - Camera {'dist': array([[-0.5001,  0.5034, -0.0024, -0.0007]]),
+        'image_size': (800, 600),
+        'intrinsic': array([[1446.5357,    0.    ,  390.2869],
+              [   0.    , 1446.5357,  328.7952],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=0.10
+INFO - Camera {'dist': array([[-0.4929,  0.5496, -0.0015, -0.0016]]),
+        'image_size': (800, 600),
+        'intrinsic': array([[1447.0264,    0.    ,  367.485 ],
+              [   0.    , 1447.0264,  242.7779],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=0.10
+INFO - Camera {'dist': array([[-0.5055,  0.6103, -0.0001,  0.0023]]),
+        'image_size': (800, 600),
+        'intrinsic': array([[1446.5105,    0.    ,  383.6263],
+              [   0.    , 1446.5105,  333.8151],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 80, cameras: {'cam1': 20, 'cam2': 20, 'cam3': 20, 'cam4': 20}, Boards: {'aprilgrid_6x6': 80}
+INFO - Overlaps by camera:
+INFO - [[   0. 2660. 2560. 2476.]
+        [2660.    0. 2684. 2604.]
+        [2560. 2684.    0. 2608.]
+        [2476. 2604. 2608.    0.]]
+INFO - Selected master 1 and pairs [(1, 2), (1, 0), (1, 3)]
+INFO - Estimate transform axis=0, pair (1, 2), inliers 18/20
+INFO - RMS (frobius): 0.0030 (0.0037) (deg): 0.1185 (0.1499) (trans): 0.0022 (0.0028)
+INFO - [[-0.0027 -0.9982  0.06   -0.0098]
+        [ 0.9993 -0.0005  0.0374 -0.0481]
+        [-0.0373  0.0601  0.9975 -0.0024]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (1, 0), inliers 19/20
+INFO - RMS (frobius): 0.0018 (0.0020) (deg): 0.0699 (0.0788) (trans): 0.0013 (0.0015)
+INFO - [[ 0.9895  0.1385  0.0419  0.0461]
+        [-0.14    0.9895  0.0351 -0.0576]
+        [-0.0366 -0.0406  0.9985 -0.0029]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (1, 3), inliers 17/20
+INFO - RMS (frobius): 0.0020 (0.0042) (deg): 0.0781 (0.1692) (trans): 0.0014 (0.0033)
+INFO - [[ 0.0018 -0.9978  0.0661 -0.0599]
+        [ 1.      0.0024  0.0094 -0.1165]
+        [-0.0095  0.0661  0.9978 -0.0025]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=0.290, n=10832, quantiles=[0.0024 0.0893 0.15   0.2572 1.3511]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=0.290, n=10832, quantiles=[0.0024 0.0893 0.15   0.2572 1.3511]
+INFO - Rejecting 4 outliers with error > 1.29 pixels, keeping 10828 / 10832 inliers, (99.96%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         4.5320e+02                                    1.93e+05
+INFO - 1              2         9.4351e+01      3.59e+02       1.19e+01       1.38e+04
+INFO - 2              3         9.2991e+01      1.36e+00       1.14e+01       1.28e+04
+INFO - 3              4         9.2742e+01      2.49e-01       2.98e+00       6.58e+03
+INFO - 4              5         9.2638e+01      1.04e-01       1.53e+00       9.37e+02
+INFO - 5              6         9.2568e+01      7.03e-02       1.31e+00       1.12e+03
+INFO - 6              7         9.2505e+01      6.24e-02       7.98e-01       4.42e+02
+INFO - 7              8         9.2219e+01      2.86e-01       6.59e+00       4.24e+03
+INFO - 8              9         9.2124e+01      9.55e-02       4.17e-01       3.61e+02
+INFO - 9             10         9.2107e+01      1.64e-02       4.01e-01       2.27e+02
+INFO - 10             11         9.2100e+01      7.49e-03       2.62e-01       6.56e+01
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 11, initial cost 4.5320e+02, final cost 9.2100e+01, first-order optimality 6.56e+01.
+INFO - Adjust_outliers 1: reprojection RMS=0.130 (0.131), n=10828 (10832), quantiles=[0.0007 0.0648 0.1012 0.1477 0.5614]
+INFO - Rejecting 0 outliers with error > 0.74 pixels, keeping 10832 / 10832 inliers, (100.00%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         9.2293e+01                                    2.01e+03
+INFO - 1              2         9.2271e+01      2.20e-02       6.23e-01       6.19e+02
+INFO - 2              3         9.2266e+01      4.83e-03       2.03e-01       8.58e+01
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 3, initial cost 9.2293e+01, final cost 9.2266e+01, first-order optimality 8.58e+01.
+INFO - Adjust_outliers 2: reprojection RMS=0.131 (0.131), n=10832 (10832), quantiles=[0.0007 0.0646 0.1011 0.1475 0.5626]
+INFO - Rejecting 0 outliers with error > 0.74 pixels, keeping 10832 / 10832 inliers, (100.00%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         9.2266e+01                                    8.58e+01
+INFO - 1              2         9.2262e+01      4.06e-03       3.28e-01       2.18e+02
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 2, initial cost 9.2266e+01, final cost 9.2262e+01, first-order optimality 2.18e+02.
+INFO - Adjust_outliers end: reprojection RMS=0.131 (0.131), n=10832 (10832), quantiles=[0.0005 0.0646 0.1012 0.1475 0.5631]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl
+INFO - Using boards:
+INFO - aprilgrid_6x6 AprilGrid {type='aprilgrid', start_id=0, tag_family='t36h11', size=(6, 6), tag_length=0.0352, tag_spacing=0.3, border_bits=2}
+INFO - Found camera directories ['cam1', 'cam2', 'cam3', 'cam4'] with 22 matching images
+INFO - Loading images..
+INFO - Loaded 88 images
+INFO - {'cam1': (800, 600), 'cam2': (800, 600), 'cam3': (800, 600), 'cam4': (800, 600)}
+INFO - Loaded detections from ./calibration.detections.pkl
+INFO - Detected point counts:
+INFO - Total: 10832, cameras: {'cam1': 2680, 'cam2': 2820, 'cam3': 2712, 'cam4': 2620}, Boards: {'aprilgrid_6x6': 10832}
+INFO - Calibrating single cameras..
+INFO - Calibrated cam1, with RMS=0.09
+INFO - Camera {'dist': array([[-0.4849,  0.3197, -0.0039,  0.0013]]),
+        'image_size': (800, 600),
+        'intrinsic': array([[1442.577 ,    0.    ,  400.9274],
+              [   0.    , 1442.577 ,  311.1363],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam2, with RMS=0.10
+INFO - Camera {'dist': array([[-0.5001,  0.5034, -0.0024, -0.0007]]),
+        'image_size': (800, 600),
+        'intrinsic': array([[1446.5357,    0.    ,  390.2869],
+              [   0.    , 1446.5357,  328.7952],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam3, with RMS=0.10
+INFO - Camera {'dist': array([[-0.4929,  0.5496, -0.0015, -0.0016]]),
+        'image_size': (800, 600),
+        'intrinsic': array([[1447.0264,    0.    ,  367.485 ],
+              [   0.    , 1447.0264,  242.7779],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Calibrated cam4, with RMS=0.10
+INFO - Camera {'dist': array([[-0.5055,  0.6103, -0.0001,  0.0023]]),
+        'image_size': (800, 600),
+        'intrinsic': array([[1446.5105,    0.    ,  383.6263],
+              [   0.    , 1446.5105,  333.8151],
+              [   0.    ,    0.    ,    1.    ]])}
+INFO - 
+INFO - Pose counts:
+INFO - Total: 80, cameras: {'cam1': 20, 'cam2': 20, 'cam3': 20, 'cam4': 20}, Boards: {'aprilgrid_6x6': 80}
+INFO - Overlaps by camera:
+INFO - [[   0. 2660. 2560. 2476.]
+        [2660.    0. 2684. 2604.]
+        [2560. 2684.    0. 2608.]
+        [2476. 2604. 2608.    0.]]
+INFO - Selected master 1 and pairs [(1, 2), (1, 0), (1, 3)]
+INFO - Estimate transform axis=0, pair (1, 2), inliers 18/20
+INFO - RMS (frobius): 0.0030 (0.0037) (deg): 0.1185 (0.1499) (trans): 0.0022 (0.0028)
+INFO - [[-0.0027 -0.9982  0.06   -0.0098]
+        [ 0.9993 -0.0005  0.0374 -0.0481]
+        [-0.0373  0.0601  0.9975 -0.0024]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (1, 0), inliers 19/20
+INFO - RMS (frobius): 0.0018 (0.0020) (deg): 0.0699 (0.0788) (trans): 0.0013 (0.0015)
+INFO - [[ 0.9895  0.1385  0.0419  0.0461]
+        [-0.14    0.9895  0.0351 -0.0576]
+        [-0.0366 -0.0406  0.9985 -0.0029]
+        [ 0.      0.      0.      1.    ]]
+INFO - Estimate transform axis=0, pair (1, 3), inliers 17/20
+INFO - RMS (frobius): 0.0020 (0.0042) (deg): 0.0781 (0.1692) (trans): 0.0014 (0.0033)
+INFO - [[ 0.0018 -0.9978  0.0661 -0.0599]
+        [ 1.      0.0024  0.0094 -0.1165]
+        [-0.0095  0.0661  0.9978 -0.0025]
+        [ 0.      0.      0.      1.    ]]
+INFO - Overlaps by board:
+INFO - [[0.]]
+INFO - Selected master 0 and pairs []
+INFO - Initialisation reprojection RMS=0.290, n=10832, quantiles=[0.0024 0.0893 0.15   0.2572 1.3511]
+INFO - Beginning adjustments (3) enabled: {cameras=True, boards=False, camera_poses=True, board_poses=True, motion=True}, options: {'loss': 'linear', 'tolerance': 0.0001}
+INFO - Adjust_outliers 0: reprojection RMS=0.290, n=10832, quantiles=[0.0024 0.0893 0.15   0.2572 1.3511]
+INFO - Rejecting 4 outliers with error > 1.29 pixels, keeping 10828 / 10832 inliers, (99.96%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         4.5320e+02                                    1.93e+05
+INFO - 1              2         9.4351e+01      3.59e+02       1.19e+01       1.38e+04
+INFO - 2              3         9.2991e+01      1.36e+00       1.14e+01       1.28e+04
+INFO - 3              4         9.2765e+01      2.27e-01       2.69e+00       5.88e+03
+INFO - 4              5         9.2659e+01      1.05e-01       1.60e+00       1.17e+03
+INFO - 5              6         9.2590e+01      6.96e-02       1.20e+00       1.03e+03
+INFO - 6              7         9.2529e+01      6.04e-02       8.61e-01       4.87e+02
+INFO - 7              8         9.2310e+01      2.19e-01       4.67e+00       2.72e+03
+INFO - 8              9         9.2213e+01      9.72e-02       4.55e-01       3.92e+02
+INFO - 9             10         9.2176e+01      3.74e-02       1.05e+00       5.84e+02
+INFO - 10             11         9.2154e+01      2.18e-02       3.57e-01       1.11e+02
+INFO - 11             12         9.2134e+01      2.02e-02       8.03e-01       3.19e+02
+INFO - 12             13         9.2114e+01      2.00e-02       5.08e-01       1.55e+02
+INFO - 13             14         9.2105e+01      8.18e-03       1.93e-01       8.18e+01
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 14, initial cost 4.5320e+02, final cost 9.2105e+01, first-order optimality 8.18e+01.
+INFO - Adjust_outliers 1: reprojection RMS=0.130 (0.131), n=10828 (10832), quantiles=[0.0009 0.0647 0.1011 0.1477 0.5617]
+INFO - Rejecting 0 outliers with error > 0.74 pixels, keeping 10832 / 10832 inliers, (100.00%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         9.2298e+01                                    2.00e+03
+INFO - 1              2         9.2286e+01      1.19e-02       2.22e-01       2.04e+02
+INFO - 2              3         9.2259e+01      2.71e-02       1.72e+00       7.51e+02
+INFO - 3              4         9.2246e+01      1.35e-02       2.69e-01       3.19e+01
+INFO - 4              5         9.2245e+01      9.96e-04       2.16e-02       8.87e+00
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 5, initial cost 9.2298e+01, final cost 9.2245e+01, first-order optimality 8.87e+00.
+INFO - Adjust_outliers 2: reprojection RMS=0.131 (0.131), n=10832 (10832), quantiles=[0.0007 0.0647 0.1011 0.1477 0.5648]
+INFO - Rejecting 0 outliers with error > 0.74 pixels, keeping 10832 / 10832 inliers, (100.00%)
+INFO - Iteration     Total nfev        Cost      Cost reduction    Step norm     Optimality
+INFO - 0              1         9.2245e+01                                    8.87e+00
+INFO - 1              2         9.2245e+01      2.79e-04       3.81e-02       3.04e+01
+INFO - `ftol` termination condition is satisfied.
+INFO - Function evaluations 2, initial cost 9.2245e+01, final cost 9.2245e+01, first-order optimality 3.04e+01.
+INFO - Adjust_outliers end: reprojection RMS=0.131 (0.131), n=10832 (10832), quantiles=[0.0007 0.0647 0.1011 0.1476 0.5648]
+INFO - Exporting calibration to ./calibration.json
+INFO - Dumping state and history to ./calibration.pkl

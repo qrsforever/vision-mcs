@@ -81,7 +81,7 @@ class MultiCameraSystem(object):
         world_xyz_points = []
         pose_refer_world = self.cameras[self.reference_camera].pose_cam_world
         for (cam1, cam2), cam_pair in self.camera_pairs.items():
-            rect_img1, rect_img2, disparity = cam_pair.stereo_disparity(images[cam1], images[cam2], self.matcher)
+            rect_img1, _, disparity = cam_pair.stereo_disparity(images[cam1], images[cam2], self.matcher)
             pose_world_rect = self.cameras[cam1].pose_cam_world.I @ cam_pair.pose_rect_cam.I
             pose_refer_rect = pose_refer_world @ pose_world_rect
             world_xyz, color_map = self.matcher.reconstruct(disparity, rect_img1, cam_pair.Q, P=pose_refer_rect)
@@ -99,7 +99,6 @@ class MultiCameraSystem(object):
 
 
 if __name__ == "__main__":
-    import matplotlib.pyplot as plt  # noqa
 
     curdir = osp.abspath(osp.dirname(__file__))
     asset_dir = f'{curdir}/../../../asset'

@@ -45,6 +45,12 @@ class View3D(object):
             self.vis.run()
             self.vis.clear_geometries()
             self.vis.destroy_window()
+            pcd_combined = o3d.geometry.PointCloud()
+            for pcd in self.geometries:
+                if type(pcd) == o3d.geometry.PointCloud:
+                    pcd_combined += pcd
+            o3d.io.write_point_cloud('out-2.ply', pcd_combined)
+
         self.geometries = []
 
     @staticmethod
@@ -91,5 +97,5 @@ class View3D(object):
         lines = [[0, 1], [2, 3], [3, 4], [4, 5], [5, 6], [0, 2], [0, 3], [0, 4], [0, 5], [2, 4], [3, 5]]
         points = np.array(points) * scale
         points = (r @ points.T).T + t
-        colors = [[0, 255, 0] for i in range(len(lines))]
+        colors = [[0, 255, 0] for _ in range(len(lines))]
         self.add_lineset(points, colors, lines)

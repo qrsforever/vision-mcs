@@ -55,8 +55,8 @@ if __name__ == "__main__":
         cap = VideoCapture(source, cam)
         cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         cap.set(cv2.CAP_PROP_FPS, 10) # TODO XW200 not work for < 30
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920) # v4l2-ctl --device=/dev/video0 --list-formats-ext
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 800) # v4l2-ctl --device=/dev/video0 --list-formats-ext
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)
         vcaps[cam] = cap
         utils_mkdir('./out/%s' % cam)
 
@@ -72,6 +72,7 @@ if __name__ == "__main__":
 
     def _save_images(channel):
         # test_relaylam_open()
+        return
         with rec.lock:
             _frames = deepcopy(rec.frames)
         img = (1 + time.time()) * 1e9
@@ -81,7 +82,7 @@ if __name__ == "__main__":
         # test_relaylam_close()
         logger.info(f'{os.getpid()}-{threading.currentThread().ident}: save [{rec.count}]')
 
-    timer = TimerCycle(2.0, _save_images, args=(0,))
+    timer = TimerCycle(3.0, _save_images, args=(0,))
     timer.start()
     # test_ele_event(_save_images)
     # test_freqled_open(1000, 90)
