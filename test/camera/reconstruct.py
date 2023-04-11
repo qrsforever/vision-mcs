@@ -8,7 +8,7 @@ if __name__ == "__main__":
 
     images_root = 'out'
     images = sorted(list(os.listdir(f'{images_root}/cam1')))
-    test_image = images[-6]
+    test_image = images[1]
     mcs = MultiCameraSystem()
     camera_pairs = [('cam1', 'cam3'), ('cam2', 'cam3'), ('cam4', 'cam3')]
     # mcs.load_and_init(f'{images_root}/result2.yaml', camera_pairs, 'cam3')

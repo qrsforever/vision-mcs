@@ -49,7 +49,7 @@ class View3D(object):
             for pcd in self.geometries:
                 if type(pcd) == o3d.geometry.PointCloud:
                     pcd_combined += pcd
-            o3d.io.write_point_cloud('out-2.ply', pcd_combined)
+            o3d.io.write_point_cloud('out-4.ply', pcd_combined)
 
         self.geometries = []
 
