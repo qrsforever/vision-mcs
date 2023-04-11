@@ -19,6 +19,7 @@ def get_angle(p1, p2):
 
 def triangulate_dist(d1, d2, angle):
     ''' 
+    余玄定理
     Calculates the the unknown side of a triagle given 2 sides and the angle between. 
  
     Angle is in Radians
@@ -77,12 +78,14 @@ def manual_measure(point_cloud):
 
         p1 = np_cloud[picked_points[point]]
         p2 = np_cloud[picked_points[point+1]]
+        print(p1, p2)
         
-        #triangulate the distance between the two points
-        angle = get_angle(p1, p2)
-        distance = triangulate_dist(p1[2], p2[2], angle)
+        # triangulate the distance between the two points
+        # angle = get_angle(p1, p2)
+        # distance = triangulate_dist(p1[2], p2[2], angle)
+        distance = euclid_dist(p1, p2)
     
-        print("Section " + str(point+1) + ": " + str(distance) + " meters", "euclid:" + str(euclid_dist(p1, p2)))
+        print("Section " + str(point+1) + ": " + str(distance) + " meters")
         
         distance_segments.append(distance)
         total_distance += distance
@@ -90,6 +93,19 @@ def manual_measure(point_cloud):
     print(str(total_distance * 100) + " centimeters")
     print(str(total_distance) + " meters")
     return total_distance, distance_segments, (p1, p2)
+
+
+def measure_dist(vis):
+    pts = vis.get_picked_points()
+    if len(pts) > 1:
+        point_a = getattr(pts[1], 'coord')
+        point_b = getattr(pts[0], 'coord')
+        dist=np.sqrt((point_a[0] - point_b[0])**2 + (point_a[1] - point_b[1])**2 + (point_a[2] - point_b[2])**2)
+        print(f"Point_A: {point_a}")
+        print(f"Point_B: {point_b}")
+        print(f"Distance: {dist}")
+    else:
+        print("Select atleast 2 points to calculate Dist")
 
 if __name__ == "__main__":
     calculated_distance = []#meters
@@ -101,7 +117,17 @@ if __name__ == "__main__":
     
     print("Starting...")
 
-    while True:
+    try:
         cloud = o3d.io.read_point_cloud('./out-4.ply')
-        length = manual_measure(cloud)
-        print("Stopping...")
+        # while True:
+        #     length = manual_measure(cloud)
+        #     print("Stopping...")
+
+        vis = o3d.visualization.VisualizerWithVertexSelection()
+        vis.create_window()
+        vis.add_geometry(cloud)
+        vis.register_selection_changed_callback(lambda : measure_dist(vis))
+        vis.run()
+        vis.destroy_window()
+    except Exception:
+        pass
