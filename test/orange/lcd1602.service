@@ -1,0 +1,13 @@
+[Unit]
+Description=LCD IP Display
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c "python3 /root/codes/vision-mcs/test/orange/lcd1602.py"
+WorkingDirectory=/root
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

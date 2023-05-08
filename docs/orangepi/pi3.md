@@ -63,13 +63,31 @@
 
     auto wlan0
     iface wlan0 inet dhcp
-    wpa-ssid hzcs211
-    wpa-psk Mxjmxj211
+    wpa-ssid hzcsdata
+    wpa-psk Hzcsai@123
 
-4. lcd
+~~4. lcd~~
 
    apt-get install python3-smbus
 
+~~5. systemctl service~~
+
+   cp xxx.service /etc/systemd/system/
+   systemctl enable xxx.service
+   systemctl restart xxx.service
+
+6. install apt / pip
+
+```
+    apt install python3-dev python3-pip libx264-dev libjpeg-dev
+
+    apt install -y gstreamer1.0-tools gstreamer1.0-alsa \
+         gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
+         gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
+         gstreamer1.0-libav
+
+    apt install python3-gst-1.0
+```
 
 ## issues
 
